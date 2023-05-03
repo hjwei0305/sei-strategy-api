@@ -1,0 +1,5 @@
+rootProject.name = 'sei-strategy-api'
+
+include 'sei-strategy-api-service'
+include 'sei-strategy-api-api'
+
