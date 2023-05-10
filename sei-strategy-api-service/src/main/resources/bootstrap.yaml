@@ -28,5 +28,7 @@ spring:
       # zk 地址
       connect-string: 10.233.0.170:2181
 
-
+http:
+  filter:
+    enable: false
 
