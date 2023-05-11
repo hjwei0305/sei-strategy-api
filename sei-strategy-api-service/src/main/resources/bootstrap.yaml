@@ -5,10 +5,17 @@ sei:
     code: sei-strategy-api
     version: '@project_version@'
     description: '@project_description@'
+    swagger:
+      title: "${sei.application.name} API"
+      description: "${sei.application.name} 的API文档，运行环境: ${sei.application.env}"
+      version: ${sei.application.version}
   mock: # 本地调试的当前用户配置
     user:
       tenant-code: DONLIM
       account: admin
+  http:
+    filter:
+      enable: false
 
 # spring配置
 spring:
@@ -28,7 +35,5 @@ spring:
       # zk 地址
       connect-string: 10.233.0.170:2181
 
-http:
-  filter:
-    enable: false
+
 
