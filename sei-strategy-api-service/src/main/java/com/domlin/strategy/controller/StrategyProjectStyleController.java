@@ -77,16 +77,6 @@ public class StrategyProjectStyleController extends BaseEntityController<Strateg
         return ResultData.success(collect);
     }
 
-//    @Override
-//    public ResultData<String> uploadMasterPlan(List<ProjectPlanDto> list) throws Exception {
-//        List<ProjectPlan> plansList = new ArrayList<>();
-//        for(ProjectPlanDto dto:list){
-//            ProjectPlan entity = entityModelMapper.map(dto,ProjectPlan.class);
-//            plansList.add(entity);
-//        }
-//        service.uploadMasterPlan(plansList);
-//        return ResultData.success();
-//    }
 
     @Override
     public ResultData<String> uploadStrategyProjectStyle(List<StrategyProjectStyleDto> list) throws Exception {
