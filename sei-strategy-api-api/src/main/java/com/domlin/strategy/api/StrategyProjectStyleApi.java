@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 项目类别(StrategyProjectStyle)API
@@ -25,16 +26,27 @@ import javax.validation.Valid;
 public interface StrategyProjectStyleApi extends BaseEntityApi<StrategyProjectStyleDto> {
     String PATH = "strategyProjectStyle";
 
-    //写一个方法，新增strategyProjectStyle
-    @PostMapping(path = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增strategyProjectStyle")
-    ResultData<StrategyProjectStyleDto> save(@RequestBody StrategyProjectStyleDto strategyProjectStyle);
-
     //写一个方法查询strategyProjectStyle，根据类别名称或者code，没有条件则查询全部
     @PostMapping(path = "findByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("分页查询strategyProjectStyle")
     ResultData<PageResult<StrategyProjectStyleDto>> findByPage(@RequestBody Search search);
 
+    //写一个方法，update strategyProjectStyle
+    @PostMapping(path = "update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新strategyProjectStyle")
+    ResultData<StrategyProjectStyleDto> update(@RequestBody StrategyProjectStyleDto strategyProjectStyle);
 
+
+    //写一个导出方法，导出全部strategyProjectStyle
+    @PostMapping(path = "export", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "导出全部strategyProjectStyle", notes = "导出全部strategyProjectStyle")
+    ResultData<List<StrategyProjectStyleDto>> export(@RequestBody Search search);
+
+
+
+    //写一个方法导入strategyProjectStyle
+    @PostMapping(path = "uploadStrategyProjectStyle")
+    @ApiOperation(value = "导入strategyProjectStyle", notes = "导入strategyProjectStyle")
+    ResultData<String> uploadStrategyProjectStyle(@RequestBody List<StrategyProjectStyleDto> list) throws Exception;
 
 }

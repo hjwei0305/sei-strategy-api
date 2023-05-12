@@ -6,12 +6,14 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.log.annotation.Log;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.util.EnumUtils;
 import com.domlin.strategy.api.StrategyProjectStyleApi;
 import com.domlin.strategy.dto.StrategyProjectStyleDto;
 import com.domlin.strategy.entity.StrategyProjectStyle;
 import com.domlin.strategy.service.StrategyProjectStyleService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 项目类别(StrategyProjectStyle)控制类
  *
- * @author sei
+ * @author hjwei
  * @since 2023-05-09 15:13:27
  */
 @RestController
@@ -56,5 +60,44 @@ public class StrategyProjectStyleController extends BaseEntityController<Strateg
         newPageResult.setRecords(byPage.getRecords());
         return ResultData.success(newPageResult);
     }
+
+    @Override
+    public ResultData<StrategyProjectStyleDto> update(StrategyProjectStyleDto strategyProjectStyle) {
+        StrategyProjectStyle update = service.update(modelMapper.map(strategyProjectStyle, StrategyProjectStyle.class));
+        return ResultData.success(modelMapper.map(update, StrategyProjectStyleDto.class));
+    }
+
+
+    @Override
+    public ResultData<List<StrategyProjectStyleDto>> export(Search search) {
+        List<StrategyProjectStyle> allOrders = service.findByFilters(search);
+        ModelMapper modelMapper = new ModelMapper();
+        TypeMap<StrategyProjectStyle, StrategyProjectStyleDto> typeMap = modelMapper.typeMap(StrategyProjectStyle.class, StrategyProjectStyleDto.class);
+        List<StrategyProjectStyleDto> collect = allOrders.stream().map(typeMap::map).collect(Collectors.toList());
+        return ResultData.success(collect);
+    }
+
+//    @Override
+//    public ResultData<String> uploadMasterPlan(List<ProjectPlanDto> list) throws Exception {
+//        List<ProjectPlan> plansList = new ArrayList<>();
+//        for(ProjectPlanDto dto:list){
+//            ProjectPlan entity = entityModelMapper.map(dto,ProjectPlan.class);
+//            plansList.add(entity);
+//        }
+//        service.uploadMasterPlan(plansList);
+//        return ResultData.success();
+//    }
+
+    @Override
+    public ResultData<String> uploadStrategyProjectStyle(List<StrategyProjectStyleDto> list) throws Exception {
+        List<StrategyProjectStyle> plansList = new ArrayList<>();
+        for(StrategyProjectStyleDto dto:list){
+            StrategyProjectStyle entity = modelMapper.map(dto,StrategyProjectStyle.class);
+            plansList.add(entity);
+        }
+        service.uploadStrategyProjectStyle(plansList);
+        return ResultData.success();
+    }
+
 
 }
