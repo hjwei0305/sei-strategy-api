@@ -1,11 +1,14 @@
 package com.domlin.strategy.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.dao.StrategyProjectVerifyDao;
 import com.domlin.strategy.entity.StrategyProjectVerify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -24,4 +27,16 @@ public class StrategyProjectVerifyService extends BaseEntityService<StrategyProj
         return dao;
     }
 
+    public StrategyProjectVerify update(StrategyProjectVerify strategyProjectVerify) {
+            return dao.save(strategyProjectVerify);
+    }
+
+    public ResultData<String> uploadStrategyProjectVerify(List<StrategyProjectVerify> collect) {
+        if (collect != null && collect.size() > 0) {
+            save(collect);
+        } else {
+            throw new RuntimeException("导入数据不能为空");
+        }
+        return ResultData.success("导入成功");
+    }
 }

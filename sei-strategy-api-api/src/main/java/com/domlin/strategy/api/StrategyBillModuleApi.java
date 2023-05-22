@@ -1,10 +1,17 @@
 package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyBillModuleDto;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 经营策略模块(StrategyBillModule)API
@@ -17,4 +24,30 @@ import javax.validation.Valid;
 @FeignClient(name = "sei-strategy-api", path = StrategyBillModuleApi.PATH)
 public interface StrategyBillModuleApi extends BaseEntityApi<StrategyBillModuleDto> {
     String PATH = "strategyBillModule";
+
+    //写一个方法查询StrategyBillModule，根据模块名称或者code，没有条件则查询全部
+    @PostMapping(path = "findByPage",consumes = "application/json")
+    @ApiOperation("分页查询StrategyBillModule")
+    ResultData<PageResult<StrategyBillModuleDto>> findByPage(@RequestBody Search search);
+
+    //写一个方法，update StrategyBillModule
+    @PostMapping(path = "update",consumes = "application/json")
+    @ApiOperation("更新StrategyBillModule")
+    ResultData<StrategyBillModuleDto> update(@RequestBody StrategyBillModuleDto strategyBillModule);
+
+    //写一个导出方法，导出全部StrategyBillModule
+    @PostMapping(path = "export",consumes = "application/json")
+    @ApiOperation(value = "导出全部StrategyBillModule", notes = "导出全部StrategyBillModule")
+    ResultData<List<StrategyBillModuleDto>> export(@RequestBody Search search);
+
+
+    //写一个方法导入StrategyBillModule
+    @PostMapping(path = "uploadStrategyBillModule")
+    @ApiOperation(value = "导入StrategyBillModule", notes = "导入StrategyBillModule")
+    ResultData<String> uploadStrategyBillModule(@RequestBody List<StrategyBillModuleDto> list) throws Exception;
+
+
+
+
+
 }

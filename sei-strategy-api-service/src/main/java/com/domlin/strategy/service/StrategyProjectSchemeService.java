@@ -24,4 +24,7 @@ public class StrategyProjectSchemeService extends BaseEntityService<StrategyProj
         return dao;
     }
 
+    public StrategyProjectScheme update(StrategyProjectScheme map) {
+        return dao.save(map);
+    }
 }

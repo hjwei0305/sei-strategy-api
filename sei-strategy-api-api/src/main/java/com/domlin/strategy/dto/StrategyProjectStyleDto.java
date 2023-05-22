@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * 项目类别(StrategyProjectStyle)DTO类
  *
@@ -24,6 +26,11 @@ public class StrategyProjectStyleDto extends BaseEntityDto {
     @ApiModelProperty(value = "项目类别")
     private String projectStyle;
 
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
 
     public String getCode() {
         return code;
@@ -39,6 +46,22 @@ public class StrategyProjectStyleDto extends BaseEntityDto {
 
     public void setProjectStyle(String projectStyle) {
         this.projectStyle = projectStyle;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

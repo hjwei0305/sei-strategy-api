@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 项目类别(StrategyProjectStyle)API
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:28
  * TODO @FeignClient(name = "请修改为项目服务名")
  */
@@ -41,7 +41,6 @@ public interface StrategyProjectStyleApi extends BaseEntityApi<StrategyProjectSt
     @PostMapping(path = "export", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "导出全部strategyProjectStyle", notes = "导出全部strategyProjectStyle")
     ResultData<List<StrategyProjectStyleDto>> export(@RequestBody Search search);
-
 
 
     //写一个方法导入strategyProjectStyle
