@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(name = "sei-strategy-api", path = DistributedLockApi.PATH)
 public interface DistributedLockApi {
+
     String PATH = "demo";
 
     @GetMapping(value = "lock")
