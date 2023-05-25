@@ -7,6 +7,7 @@ import com.domlin.strategy.dao.StrategyBillModuleDao;
 import com.domlin.strategy.entity.StrategyBillModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class StrategyBillModuleService extends BaseEntityService<StrategyBillMod
         return dao.save(map);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<String> uploadStrategyBillModule(List<StrategyBillModule> list) {
         if (list != null && list.size() > 0) {
             save(list);
