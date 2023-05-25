@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * 项目分级(StrategyProjectLevel)DTO类
  *
@@ -44,6 +46,11 @@ public class StrategyProjectLevelDto extends BaseEntityDto {
     @ApiModelProperty(value = "运行阶段")
     private String stage;
 
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
 
     public String getCode() {
         return code;
@@ -91,6 +98,22 @@ public class StrategyProjectLevelDto extends BaseEntityDto {
 
     public void setStage(String stage) {
         this.stage = stage;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }
