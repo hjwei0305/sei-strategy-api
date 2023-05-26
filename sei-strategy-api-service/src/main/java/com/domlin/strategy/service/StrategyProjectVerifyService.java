@@ -7,6 +7,7 @@ import com.domlin.strategy.dao.StrategyProjectVerifyDao;
 import com.domlin.strategy.entity.StrategyProjectVerify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class StrategyProjectVerifyService extends BaseEntityService<StrategyProj
             return dao.save(strategyProjectVerify);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<String> uploadStrategyProjectVerify(List<StrategyProjectVerify> collect) {
         if (collect != null && collect.size() > 0) {
             save(collect);
