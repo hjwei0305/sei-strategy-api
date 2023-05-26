@@ -25,10 +25,14 @@ public class StrategyProjectSchemeDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "确认类别")
     private String schedule;
+
+    @ApiModelProperty(value = "提交日期")
+    private String submitDateStr;
+
     /**
      * 实际提交时间
      */
-    @ApiModelProperty(value = "实际提交时间")
+    @ApiModelProperty(value = "创建时间")
     private Date submitDate;
     /**
      * 提交人姓名
@@ -67,6 +71,14 @@ public class StrategyProjectSchemeDto extends BaseEntityDto {
 
     public void setSubmitBy(String submitBy) {
         this.submitBy = submitBy;
+    }
+
+    public String getSubmitDateStr() {
+        return submitDateStr;
+    }
+
+    public void setSubmitDateStr(String submitDateStr) {
+        this.submitDateStr = submitDateStr;
     }
 
 }
