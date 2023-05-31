@@ -24,8 +24,8 @@ public class StrategyUser extends BaseAuditableEntity implements Serializable {
     /**
      * module_id
      */
-    @Column(name = "module_id")
-    private String moduleId;
+    @Column(name = "module_code")
+    private String moduleCode;
     /**
      * 模块
      */
@@ -62,13 +62,12 @@ public class StrategyUser extends BaseAuditableEntity implements Serializable {
     @Column(name = "user_statue")
     private String userStatue;
 
-
-    public String getModuleId() {
-        return moduleId;
+    public String getModuleCode() {
+        return moduleCode;
     }
 
-    public void setModuleId(String moduleId) {
-        this.moduleId = moduleId;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     public String getModule() {

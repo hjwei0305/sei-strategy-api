@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * 人员信息(StrategyUser)DTO类
  *
@@ -16,8 +18,8 @@ public class StrategyUserDto extends BaseEntityDto {
     /**
      * module_id
      */
-    @ApiModelProperty(value = "module_id")
-    private String moduleId;
+    @ApiModelProperty(value = "module_Code")
+    private String moduleCode;
     /**
      * 模块
      */
@@ -54,13 +56,19 @@ public class StrategyUserDto extends BaseEntityDto {
     @ApiModelProperty(value = "人员状态")
     private String userStatue;
 
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
 
-    public String getModuleId() {
-        return moduleId;
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
+
+
+    public String getModuleCode() {
+        return moduleCode;
     }
 
-    public void setModuleId(String moduleId) {
-        this.moduleId = moduleId;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     public String getModule() {
@@ -119,4 +127,19 @@ public class StrategyUserDto extends BaseEntityDto {
         this.userStatue = userStatue;
     }
 
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 经营策略模块(StrategyBillModule)API
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:10:16
  * TODO @FeignClient(name = "请修改为项目服务名")
  */
