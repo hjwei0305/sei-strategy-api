@@ -7,6 +7,7 @@ import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
         return dao.save(strategyUser);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public String uploadStrategyUser(List<StrategyUser> newRow) {
         if (newRow != null && newRow.size() > 0) {
             save(newRow);
