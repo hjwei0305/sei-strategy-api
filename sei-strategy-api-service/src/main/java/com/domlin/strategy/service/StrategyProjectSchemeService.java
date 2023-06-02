@@ -1,11 +1,16 @@
 package com.domlin.strategy.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.dao.StrategyProjectSchemeDao;
 import com.domlin.strategy.entity.StrategyProjectScheme;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -26,5 +31,15 @@ public class StrategyProjectSchemeService extends BaseEntityService<StrategyProj
 
     public StrategyProjectScheme update(StrategyProjectScheme map) {
         return dao.save(map);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<String> uploadStrategyProjectScheme(List<StrategyProjectScheme> collect) {
+        if (CollectionUtils.isNotEmpty(collect)){
+            dao.saveAll(collect);
+        }else{
+            throw new RuntimeException("导入数据不能为空");
+        }
+        return ResultData.success("导入成功");
     }
 }

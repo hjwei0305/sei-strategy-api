@@ -33,15 +33,28 @@ public class StrategyProjectScheme extends BaseAuditableEntity implements Serial
     @Column(name = "schedule")
     private String schedule;
     /**
-     * 实际提交时间
+     * user表工号
      */
-    @Column(name = "submit_date")
-    private Date submitDate;
+    @Column(name = "user_code")
+    private String userCode;
     /**
      * 提交人姓名
      */
     @Column(name = "submit_by")
     private String submitBy;
+
+    /**
+     * department
+     */
+    @Column(name = "department")
+    private String department;
+
+    /**
+     * scheduleOver
+     */
+    @Column(name = "schedule_over")
+    private String scheduleOver;
+
 
 
     public String getStyle() {
@@ -60,14 +73,6 @@ public class StrategyProjectScheme extends BaseAuditableEntity implements Serial
         this.schedule = schedule;
     }
 
-    public Date getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
-    }
-
     public String getSubmitBy() {
         return submitBy;
     }
@@ -76,4 +81,27 @@ public class StrategyProjectScheme extends BaseAuditableEntity implements Serial
         this.submitBy = submitBy;
     }
 
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getScheduleOver() {
+        return scheduleOver;
+    }
+
+    public void setScheduleOver(String scheduleOver) {
+        this.scheduleOver = scheduleOver;
+    }
 }

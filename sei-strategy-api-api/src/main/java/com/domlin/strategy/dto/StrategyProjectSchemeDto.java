@@ -26,19 +26,35 @@ public class StrategyProjectSchemeDto extends BaseEntityDto {
     @ApiModelProperty(value = "确认类别")
     private String schedule;
 
-    @ApiModelProperty(value = "提交日期")
-    private String submitDateStr;
+    /**
+     * 最后提交日期
+     */
+    @ApiModelProperty(value = "最后提交日期")
+    private String scheduleOver;
+
 
     /**
-     * 实际提交时间
+     * user表工号
      */
-    @ApiModelProperty(value = "创建时间")
-    private Date submitDate;
+    @ApiModelProperty(value = "user表工号")
+    private String userCode;
+
     /**
      * 提交人姓名
      */
     @ApiModelProperty(value = "提交人姓名")
     private String submitBy;
+    /**
+     * department
+     */
+    @ApiModelProperty(value = "department")
+    private String department;
+
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
 
 
     public String getStyle() {
@@ -57,14 +73,6 @@ public class StrategyProjectSchemeDto extends BaseEntityDto {
         this.schedule = schedule;
     }
 
-    public Date getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
-    }
-
     public String getSubmitBy() {
         return submitBy;
     }
@@ -73,12 +81,44 @@ public class StrategyProjectSchemeDto extends BaseEntityDto {
         this.submitBy = submitBy;
     }
 
-    public String getSubmitDateStr() {
-        return submitDateStr;
+    public String getUserCode() {
+        return userCode;
     }
 
-    public void setSubmitDateStr(String submitDateStr) {
-        this.submitDateStr = submitDateStr;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getScheduleOver() {
+        return scheduleOver;
+    }
+
+    public void setScheduleOver(String scheduleOver) {
+        this.scheduleOver = scheduleOver;
+    }
 }

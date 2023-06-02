@@ -78,6 +78,10 @@ public class StrategyProjectSchemeController extends BaseEntityController<Strate
 
     @Override
     public ResultData<String> uploadStrategyProjectScheme(List<StrategyProjectSchemeDto> list) throws Exception {
-        return null;
+        if (CollectionUtils.isNotEmpty(list)){
+            List<StrategyProjectScheme> collect = list.stream().map(x -> modelMapper.map(x, StrategyProjectScheme.class)).collect(Collectors.toList());
+            return service.uploadStrategyProjectScheme(collect);
+        }
+        return ResultData.fail("参数不能为空");
     }
 }
