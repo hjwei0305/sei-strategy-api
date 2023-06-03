@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class StrategyUser extends BaseAuditableEntity implements Serializable {
     private static final long serialVersionUID = 865482175419900646L;
     /**
-     * module_id
+     * module_code
      */
     @Column(name = "module_code")
     private String moduleCode;
