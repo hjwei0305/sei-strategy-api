@@ -65,7 +65,7 @@ public class StrategyBillModuleController extends BaseEntityController<StrategyB
 
     @Override
     public ResultData<StrategyBillModuleDto> update(StrategyBillModuleDto strategyBillModule) {
-        if (strategyBillModule == null) {
+        if (strategyBillModule != null) {
             StrategyBillModule mode = service.update(modelMapper.map(strategyBillModule, StrategyBillModule.class));
             return ResultData.success(modelMapper.map(mode, StrategyBillModuleDto.class));
         }

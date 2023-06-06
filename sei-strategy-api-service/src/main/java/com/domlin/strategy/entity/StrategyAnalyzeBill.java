@@ -35,8 +35,8 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
     /**
      * 模块id
      */
-    @Column(name = "module_id")
-    private String moduleId;
+    @Column(name = "module_code")
+    private String moduleCode;
     /**
      * 所属模块
      */
@@ -45,13 +45,18 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
     /**
      * 单号
      */
-    @Column(name = "bill_no")
-    private String billNo;
+    @Column(name = "code")
+    private String code;
     /**
      * 状态
      */
     @Column(name = "state")
     private String state;
+    /**
+     * 阶段
+     */
+    @Column(name = "stage")
+    private String stage;
     /**
      * 日期
      */
@@ -75,12 +80,12 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
         this.strategyName = strategyName;
     }
 
-    public String getModuleId() {
-        return moduleId;
+    public String getModuleCode() {
+        return moduleCode;
     }
 
-    public void setModuleId(String moduleId) {
-        this.moduleId = moduleId;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     public String getModule() {
@@ -91,12 +96,12 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
         this.module = module;
     }
 
-    public String getBillNo() {
-        return billNo;
+    public String getCode() {
+        return code;
     }
 
-    public void setBillNo(String billNo) {
-        this.billNo = billNo;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getState() {
@@ -113,6 +118,14 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 
 }

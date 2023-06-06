@@ -26,10 +26,10 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "经营策略")
     private String strategyName;
     /**
-     * 模块id
+     * 模块code
      */
-    @ApiModelProperty(value = "模块id")
-    private String moduleId;
+    @ApiModelProperty(value = "模块code")
+    private String moduleCode;
     /**
      * 所属模块
      */
@@ -39,17 +39,32 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
      * 单号
      */
     @ApiModelProperty(value = "单号")
-    private String billNo;
+    private String code;
     /**
      * 状态
      */
     @ApiModelProperty(value = "状态")
     private String state;
     /**
+     * 阶段
+     */
+    @ApiModelProperty(value = "阶段")
+    private String stage;
+    /**
      * 日期
      */
     @ApiModelProperty(value = "日期")
     private Date date;
+
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
+
+    @ApiModelProperty(value = "最后更新时间")
+    private Date lastEditedDate;
+
 
 
     public String getYear() {
@@ -68,12 +83,12 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
         this.strategyName = strategyName;
     }
 
-    public String getModuleId() {
-        return moduleId;
+    public String getModuleCode() {
+        return moduleCode;
     }
 
-    public void setModuleId(String moduleId) {
-        this.moduleId = moduleId;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     public String getModule() {
@@ -84,12 +99,12 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
         this.module = module;
     }
 
-    public String getBillNo() {
-        return billNo;
+    public String getCode() {
+        return code;
     }
 
-    public void setBillNo(String billNo) {
-        this.billNo = billNo;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getState() {
@@ -106,6 +121,38 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastEditedDate() {
+        return lastEditedDate;
+    }
+
+    public void setLastEditedDate(Date lastEditedDate) {
+        this.lastEditedDate = lastEditedDate;
     }
 
 }
