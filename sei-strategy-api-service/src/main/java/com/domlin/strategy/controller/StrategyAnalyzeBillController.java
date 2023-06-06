@@ -80,10 +80,11 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     }
 
     @Override
-    public ResultData<String> uploadStrategyAnalyzeBill(StrategyAnalyzeBillDto strategyAnalyzeBill) {
-        if (strategyAnalyzeBill != null) {
-            StrategyAnalyzeBill strategyAnalyzeBill1 = modelMapper.map(strategyAnalyzeBill, StrategyAnalyzeBill.class);
-            return service.uploadStrategyAnalyzeBill(strategyAnalyzeBill1);
+    public ResultData<String> uploadStrategyAnalyzeBill(List<StrategyAnalyzeBillDto> strategyAnalyzeBills) {
+        if (CollectionUtils.isNotEmpty(strategyAnalyzeBills)) {
+            List<StrategyAnalyzeBill> strategyAnalyzeBillList = new ArrayList<>();
+            strategyAnalyzeBills.forEach(x -> strategyAnalyzeBillList.add(modelMapper.map(x, StrategyAnalyzeBill.class)));
+            service.uploadStrategyAnalyzeBill(strategyAnalyzeBillList);
         }
         return ResultData.success();
     }

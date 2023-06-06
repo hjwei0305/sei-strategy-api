@@ -44,7 +44,7 @@ public interface StrategyAnalyzeBillApi extends BaseEntityApi<StrategyAnalyzeBil
     //写一个方法导入strategyAnalyzeBill
     @PostMapping(path = "uploadStrategyAnalyzeBill")
     @ApiOperation(value = "导入strategyAnalyzeBill", notes = "导入strategyAnalyzeBill")
-    ResultData<String> uploadStrategyAnalyzeBill(@RequestBody StrategyAnalyzeBillDto strategyAnalyzeBill) throws Exception;
+    ResultData<String> uploadStrategyAnalyzeBill(@RequestBody List<StrategyAnalyzeBillDto> strategyAnalyzeBill) throws Exception;
 
 
 

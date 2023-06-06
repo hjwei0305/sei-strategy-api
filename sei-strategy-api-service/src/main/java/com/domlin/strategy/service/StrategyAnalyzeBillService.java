@@ -5,9 +5,12 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.dao.StrategyAnalyzeBillDao;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -31,8 +34,8 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<String> uploadStrategyAnalyzeBill(StrategyAnalyzeBill strategyAnalyzeBill) {
-        if (strategyAnalyzeBill != null) {
+    public ResultData<String> uploadStrategyAnalyzeBill(List<StrategyAnalyzeBill> strategyAnalyzeBill) {
+        if (CollectionUtils.isNotEmpty(strategyAnalyzeBill)) {
             save(strategyAnalyzeBill);
         } else {
             throw new RuntimeException("导入数据不能为空");
