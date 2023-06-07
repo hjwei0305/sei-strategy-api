@@ -5,6 +5,7 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.api.StrategyAnalyzeBillApi;
 import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
@@ -43,6 +44,9 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired(required = false)
+    private SerialService serialService;
 
     @Override
     public ResultData<PageResult<StrategyAnalyzeBillDto>> findByPage(Search search) {
@@ -83,7 +87,12 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     public ResultData<String> uploadStrategyAnalyzeBill(List<StrategyAnalyzeBillDto> strategyAnalyzeBills) {
         if (CollectionUtils.isNotEmpty(strategyAnalyzeBills)) {
             List<StrategyAnalyzeBill> strategyAnalyzeBillList = new ArrayList<>();
-            strategyAnalyzeBills.forEach(x -> strategyAnalyzeBillList.add(modelMapper.map(x, StrategyAnalyzeBill.class)));
+            for (int i = 0; i < strategyAnalyzeBills.size(); i++) {
+                StrategyAnalyzeBill map = modelMapper.map(strategyAnalyzeBills.get(i), StrategyAnalyzeBill.class);
+                map.setState("0");
+                map.setCode(serialService.getNumber(StrategyAnalyzeBill.class));
+                strategyAnalyzeBillList.add(map);
+            }
             service.uploadStrategyAnalyzeBill(strategyAnalyzeBillList);
         }
         return ResultData.success();

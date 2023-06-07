@@ -65,6 +65,11 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "最后更新时间")
     private Date lastEditedDate;
 
+    /**
+     * 变更次数
+     */
+    @ApiModelProperty(value = "变更次数")
+    private Integer changeCount;
 
 
     public String getYear() {
@@ -153,6 +158,14 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
 
     public void setLastEditedDate(Date lastEditedDate) {
         this.lastEditedDate = lastEditedDate;
+    }
+
+    public Integer getChangeCount() {
+        return changeCount;
+    }
+
+    public void setChangeCount(Integer changeCount) {
+        this.changeCount = changeCount;
     }
 
 }

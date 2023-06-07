@@ -3,9 +3,12 @@ package com.domlin.strategy.service;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResultWithData;
+import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.dao.StrategyAnalyzeBillDao;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,18 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
     @Override
     protected BaseEntityDao<StrategyAnalyzeBill> getDao() {
         return dao;
+    }
+
+    @Autowired(required = false)
+    private SerialService serialService;
+
+    @Override
+    @Transactional
+    public OperateResultWithData<StrategyAnalyzeBill> save(StrategyAnalyzeBill entity) {
+        if (StringUtils.isBlank(entity.getCode())) {
+            entity.setCode(serialService.getNumber(StrategyAnalyzeBill.class));
+        }
+        return super.save(entity);
     }
 
     public StrategyAnalyzeBill update(StrategyAnalyzeBill strategyAnalyzeBill) {

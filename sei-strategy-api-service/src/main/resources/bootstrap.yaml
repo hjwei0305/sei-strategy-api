@@ -13,9 +13,9 @@ sei:
     user:
       tenant-code: DONLIM
       account: admin
-  http:
-    filter:
-      enable: false
+#  http:
+#    filter:
+#      enable: false
 
 # spring配置
 spring:
