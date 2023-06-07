@@ -24,4 +24,7 @@ public class StrategyProjectService extends BaseEntityService<StrategyProject> {
         return dao;
     }
 
+    public void update(StrategyProject entity) {
+        dao.save(entity);
+    }
 }
