@@ -1,5 +1,7 @@
 package com.domlin.strategy.controller;
 
+import com.changhong.sei.basic.api.SysUserApi;
+import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +48,31 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Autowired(required = false)
     private SerialService serialService;
 
+
+    /**
+     * 分页查询经营策略
+     * 封装返回值
+     * @param search
+     * @return
+     */
     @Override
     public ResultData<PageResult<StrategyAnalyzeBillDto>> findByPage(Search search) {
         PageResult<StrategyAnalyzeBillDto> newPageResult = new PageResult<>();
         List<StrategyAnalyzeBillDto> newRows = new ArrayList<>();
         PageResult<StrategyAnalyzeBill> pageResult = service.findByPage(search);
-        if (CollectionUtils.isNotEmpty(pageResult.getRows())) {
-            pageResult.getRows().forEach(x -> newRows.add(modelMapper.map(x, StrategyAnalyzeBillDto.class)));
+        ArrayList<StrategyAnalyzeBill> rows = pageResult.getRows();
+        if (CollectionUtils.isNotEmpty(rows)) {
+            for (int i = 0; i < rows.size(); i++) {
+                StrategyAnalyzeBillDto dto = modelMapper.map(rows.get(i), StrategyAnalyzeBillDto.class);
+//                ResultData<SysUserDto> employee = sysUserApi.findByEmployeeCode(rows.get(i).getCode());
+//                dto.setCreatorPosition(employee.getData().getSpName());
+                dto.setCreatorPosition("齐天大圣");
+                newRows.add(dto);
+            }
             newPageResult.setRows(newRows);
             newPageResult.setTotal(pageResult.getTotal());
             newPageResult.setPage(pageResult.getPage());

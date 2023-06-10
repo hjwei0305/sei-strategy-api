@@ -26,6 +26,7 @@ dependencies {
     // compile("com.changhong.sei:sei-test-starter:$sei_version")
     testCompile("com.changhong.sei:sei-test-starter:$sei_version")
     implementation 'com.changhong.sei:sei-serial-sdk:6.+' // 给号服务
+    implementation "com.changhong.sei:sei-basic-v6-api:6.0.1.199"
 }
 
 // 处理资源配置文件

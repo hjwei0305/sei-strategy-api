@@ -62,6 +62,12 @@ public class StrategyUser extends BaseAuditableEntity implements Serializable {
     @Column(name = "user_statue")
     private String userStatue;
 
+    /**
+     * 人员职位
+     */
+    @Column(name = "position")
+    private String position;
+
     public String getModuleCode() {
         return moduleCode;
     }
@@ -124,6 +130,14 @@ public class StrategyUser extends BaseAuditableEntity implements Serializable {
 
     public void setUserStatue(String userStatue) {
         this.userStatue = userStatue;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
 }

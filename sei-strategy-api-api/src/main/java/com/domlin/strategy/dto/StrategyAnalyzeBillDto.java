@@ -56,14 +56,42 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "日期")
     private Date date;
 
+    @ApiModelProperty(value = "创建人工号")
+    protected String creatorAccount;
+
     @ApiModelProperty(value = "创建人")
     private String creatorName;
+
+    @ApiModelProperty(value = "创建人职位")
+    private String creatorPosition;
 
     @ApiModelProperty(value = "创建时间")
     private Date createdDate;
 
     @ApiModelProperty(value = "最后更新时间")
     private Date lastEditedDate;
+
+    /**
+     * 策略负责人
+     */
+    private StrategyUserDto offcer;
+
+    /**
+     * 策略管理员
+     */
+    private StrategyUserDto manager;
+
+
+    /**
+     * 策略联系人
+     */
+    private StrategyUserDto contact;
+
+
+    /**
+     * 单位负责人
+     */
+    private StrategyUserDto unitManager;
 
     /**
      * 变更次数
@@ -166,6 +194,22 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
 
     public void setChangeCount(Integer changeCount) {
         this.changeCount = changeCount;
+    }
+
+    public String getCreatorAccount() {
+        return creatorAccount;
+    }
+
+    public void setCreatorAccount(String creatorAccount) {
+        this.creatorAccount = creatorAccount;
+    }
+
+    public String getCreatorPosition() {
+        return creatorPosition;
+    }
+
+    public void setCreatorPosition(String creatorPosition) {
+        this.creatorPosition = creatorPosition;
     }
 
 }

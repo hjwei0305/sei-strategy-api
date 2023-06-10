@@ -1,11 +1,12 @@
 package com.domlin.strategy.controller;
 
+import com.changhong.sei.basic.api.SysUserApi;
+import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
 import com.changhong.sei.core.util.JsonUtils;
 import com.changhong.sei.core.util.JwtTokenUtil;
 import com.changhong.sei.serial.sdk.SerialService;
-import com.domlin.strategy.controller.HelloController;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import static org.junit.Assert.*;
 
 /**
  * 实现功能: Hello 单元测试
@@ -47,9 +46,9 @@ public class HelloControllerTest extends BaseUnitTest {
         String account = "用户账号";
         String userName = "用户姓名";
         claims.put("tenant", tenant);
-        claims.put("userId", "21B2F616-BA27-11EC-9755-0242AC14001A");
-        claims.put("account", "admin");
-        claims.put("userName", "租户管理员");
+        claims.put("userId", "ACA47EF2-CE6A-11ED-BBDF-0242AC120011");
+        claims.put("account", "381669");
+        claims.put("userName", "何爵为");
         claims.put("authorityPolicy","NormalUser");
 
         JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
@@ -60,5 +59,7 @@ public class HelloControllerTest extends BaseUnitTest {
         account = jwtTokenUtil.getSubjectFromToken(t);
         System.out.println(account);
     }
+
+
 
 }
