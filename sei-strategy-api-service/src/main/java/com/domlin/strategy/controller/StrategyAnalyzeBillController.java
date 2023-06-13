@@ -10,8 +10,10 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.api.StrategyAnalyzeBillApi;
 import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
+import com.domlin.strategy.dto.StrategyHeaderDto;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.service.StrategyAnalyzeBillService;
+import com.domlin.strategy.service.StrategyProjectService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -40,6 +42,9 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     @Autowired
     private StrategyAnalyzeBillService service;
 
+    @Autowired
+    private StrategyProjectService strategyProjectService;
+
     @Override
     public BaseEntityService<StrategyAnalyzeBill> getService() {
         return service;
@@ -48,9 +53,12 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private SysUserApi sysUserApi;
 
     @Autowired(required = false)
     private SerialService serialService;
+
 
 
     /**
@@ -70,7 +78,7 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
                 StrategyAnalyzeBillDto dto = modelMapper.map(rows.get(i), StrategyAnalyzeBillDto.class);
 //                ResultData<SysUserDto> employee = sysUserApi.findByEmployeeCode(rows.get(i).getCode());
 //                dto.setCreatorPosition(employee.getData().getSpName());
-                dto.setCreatorPosition("齐天大圣");
+//                dto.setCreatorPosition("齐天大圣");
                 newRows.add(dto);
             }
             newPageResult.setRows(newRows);
@@ -115,4 +123,6 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
         }
         return ResultData.success();
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
+import com.domlin.strategy.dto.StrategyHeaderDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,5 @@ public interface StrategyAnalyzeBillApi extends BaseEntityApi<StrategyAnalyzeBil
     @PostMapping(path = "uploadStrategyAnalyzeBill")
     @ApiOperation(value = "导入strategyAnalyzeBill", notes = "导入strategyAnalyzeBill")
     ResultData<String> uploadStrategyAnalyzeBill(@RequestBody List<StrategyAnalyzeBillDto> strategyAnalyzeBill) throws Exception;
-
-
 
 }

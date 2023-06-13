@@ -15,7 +15,7 @@ import javax.validation.Valid;
 /**
  * 项目(StrategyProject)API
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:12:51
  * TODO @FeignClient(name = "请修改为项目服务名")
  */

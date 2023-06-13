@@ -68,6 +68,11 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
     @Column(name = "change_count")
     private Integer changeCount;
 
+    /**
+     * description
+     */
+    @Column(name = "description")
+    private String description;
 
 
     public String getYear() {
@@ -138,8 +143,16 @@ public class StrategyAnalyzeBill extends BaseAuditableEntity implements Serializ
         return changeCount;
     }
 
-public void setChangeCount(Integer changeCount) {
+    public void setChangeCount(Integer changeCount) {
         this.changeCount = changeCount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

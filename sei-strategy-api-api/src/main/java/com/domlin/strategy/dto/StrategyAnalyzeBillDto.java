@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
+
 
 /**
  * 经营策略(StrategyAnalyzeBill)DTO类
@@ -72,33 +74,23 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     private Date lastEditedDate;
 
     /**
-     * 策略负责人
-     */
-    private StrategyUserDto offcer;
-
-    /**
-     * 策略管理员
-     */
-    private StrategyUserDto manager;
-
-
-    /**
-     * 策略联系人
-     */
-    private StrategyUserDto contact;
-
-
-    /**
-     * 单位负责人
-     */
-    private StrategyUserDto unitManager;
-
-    /**
      * 变更次数
      */
     @ApiModelProperty(value = "变更次数")
     private Integer changeCount;
 
+
+    //创建一个strategyProjectDto的集合
+    @ApiModelProperty("strategyProjectDto的集合")
+    private StrategyProjectDto strategyProjectDto;
+
+    //创建一个strategyProjectDto的集合
+    @ApiModelProperty("strategyProjectDto的集合")
+    private List<StrategyProjectDto> saveProjects;
+
+    //description
+    @ApiModelProperty("description")
+    private String description;
 
     public String getYear() {
         return year;
@@ -212,4 +204,28 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
         this.creatorPosition = creatorPosition;
     }
 
+
+    public StrategyProjectDto getStrategyProjectDto() {
+        return strategyProjectDto;
+    }
+
+    public void setStrategyProjectDto(StrategyProjectDto strategyProjectDto) {
+        this.strategyProjectDto = strategyProjectDto;
+    }
+
+    public List<StrategyProjectDto> getSaveProjects() {
+        return saveProjects;
+    }
+
+    public void setSaveProjects(List<StrategyProjectDto> saveProjects) {
+        this.saveProjects = saveProjects;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

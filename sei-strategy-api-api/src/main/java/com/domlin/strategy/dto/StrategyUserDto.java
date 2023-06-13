@@ -62,6 +62,12 @@ public class StrategyUserDto extends BaseEntityDto {
     @ApiModelProperty(value = "创建时间")
     private Date createdDate;
 
+    /**
+     * 人员职位
+     */
+    @ApiModelProperty(value = "position")
+    private String position;
+
 
     public String getModuleCode() {
         return moduleCode;

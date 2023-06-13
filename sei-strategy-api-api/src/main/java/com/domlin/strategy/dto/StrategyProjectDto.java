@@ -67,6 +67,31 @@ public class StrategyProjectDto extends BaseEntityDto {
     private Date firstTrialDate;
 
 
+
+    /**
+     * 策略负责人
+     */
+    private StrategyUserDto offcer;
+
+    /**
+     * 策略管理员
+     */
+    private StrategyUserDto manager;
+
+
+    /**
+     * 策略联系人
+     */
+    private StrategyUserDto contact;
+
+
+    /**
+     * 单位负责人
+     */
+    private StrategyUserDto unitManager;
+
+
+
     public String getName() {
         return name;
     }
@@ -147,4 +172,35 @@ public class StrategyProjectDto extends BaseEntityDto {
         this.firstTrialDate = firstTrialDate;
     }
 
+    public StrategyUserDto getOffcer() {
+        return offcer;
+    }
+
+    public void setOffcer(StrategyUserDto offcer) {
+        this.offcer = offcer;
+    }
+
+    public StrategyUserDto getManager() {
+        return manager;
+    }
+
+    public void setManager(StrategyUserDto manager) {
+        this.manager = manager;
+    }
+
+    public StrategyUserDto getContact() {
+        return contact;
+    }
+
+    public void setContact(StrategyUserDto contact) {
+        this.contact = contact;
+    }
+
+    public StrategyUserDto getUnitManager() {
+        return unitManager;
+    }
+
+    public void setUnitManager(StrategyUserDto unitManager) {
+        this.unitManager = unitManager;
+    }
 }
