@@ -5,8 +5,10 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.dao.StrategyProjectDao;
+import com.domlin.strategy.dao.StrategyProjectRelationDao;
 import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.entity.StrategyProject;
+import com.domlin.strategy.entity.StrategyProjectRelation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class StrategyProjectService extends BaseEntityService<StrategyProject> {
         return dao;
     }
 
+    @Autowired
+    private StrategyProjectRelationDao strategyProjectRelationDao;
 
     @Autowired(required = false)
     private SerialService serialService;
@@ -51,5 +55,12 @@ public class StrategyProjectService extends BaseEntityService<StrategyProject> {
 
     public List<StrategyProject> findByStrategyAnalyzeBillId(String id) {
         return dao.findByStrategyAnalyzeBillId(id);
+    }
+
+    public void saveStrategyProjectRelation(String id, String id1) {
+        StrategyProjectRelation strategyProjectRelation = new StrategyProjectRelation();
+        strategyProjectRelation.setStrategyId(id);
+        strategyProjectRelation.setProjectId(id1);
+        strategyProjectRelationDao.save(strategyProjectRelation);
     }
 }

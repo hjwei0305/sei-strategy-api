@@ -79,14 +79,9 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "变更次数")
     private Integer changeCount;
 
-
     //创建一个strategyProjectDto的集合
     @ApiModelProperty("strategyProjectDto的集合")
-    private StrategyProjectDto strategyProjectDto;
-
-    //创建一个strategyProjectDto的集合
-    @ApiModelProperty("strategyProjectDto的集合")
-    private List<StrategyProjectDto> saveProjects;
+    private List<StrategyProjectDto> projectDtoList;
 
     //description
     @ApiModelProperty("description")
@@ -205,20 +200,12 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     }
 
 
-    public StrategyProjectDto getStrategyProjectDto() {
-        return strategyProjectDto;
+    public List<StrategyProjectDto> getProjectDtoList() {
+        return projectDtoList;
     }
 
-    public void setStrategyProjectDto(StrategyProjectDto strategyProjectDto) {
-        this.strategyProjectDto = strategyProjectDto;
-    }
-
-    public List<StrategyProjectDto> getSaveProjects() {
-        return saveProjects;
-    }
-
-    public void setSaveProjects(List<StrategyProjectDto> saveProjects) {
-        this.saveProjects = saveProjects;
+    public void setProjectDtoList(List<StrategyProjectDto> projectDtoList) {
+        this.projectDtoList = projectDtoList;
     }
 
     public String getDescription() {

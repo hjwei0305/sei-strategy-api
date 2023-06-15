@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 实现功能：
@@ -18,6 +19,16 @@ public class StrategyHeaderDto  extends BaseEntityDto {
     //创建一个strategyAnalyzeBillDto的集合
     @ApiModelProperty("strategyAnalyzeBillDto")
     private StrategyAnalyzeBillDto strategyAnalyzeBillDto;
+
+
+    //用来处理多个经营策略对应一个项目的情况
+    @ApiModelProperty("仅用于展示的strategyProjectDto")
+    private StrategyProjectDto strategyProjectDto;
+
+
+    //专门存放经营策略Code的集合
+    @ApiModelProperty("strategyAnalyzeBillDto的code集合")
+    private List<Map<String,String>> strategyCodes;
 
     /**
      * 策略负责人
@@ -81,5 +92,21 @@ public class StrategyHeaderDto  extends BaseEntityDto {
 
     public void setUnitManagers(List<StrategyUserDto> unitManagers) {
         this.unitManagers = unitManagers;
+    }
+
+    public StrategyProjectDto getStrategyProjectDto() {
+        return strategyProjectDto;
+    }
+
+    public void setStrategyProjectDto(StrategyProjectDto strategyProjectDto) {
+        this.strategyProjectDto = strategyProjectDto;
+    }
+
+    public List<Map<String, String>> getStrategyCodes() {
+        return strategyCodes;
+    }
+
+    public void setStrategyCodes(List<Map<String, String>> strategyCodes) {
+        this.strategyCodes = strategyCodes;
     }
 }

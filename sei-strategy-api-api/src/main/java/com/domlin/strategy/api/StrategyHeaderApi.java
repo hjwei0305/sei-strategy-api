@@ -34,9 +34,9 @@ public interface StrategyHeaderApi extends BaseEntityApi<StrategyHeaderDto> {
 
 
     //写一个方法，更新strategyAnalyzeBill，并且保存strategyProject
-    @PostMapping(path = "updateStrategyAnalyzeBillAndProject")
+    @PostMapping(path = "save")
     @ApiOperation(value = "更新strategyAnalyzeBill，并且保存strategyProject", notes = "更新strategyAnalyzeBill，并且保存strategyProject")
-    ResultData<StrategyHeaderDto> updateStrategyAnalyzeBillAndProject(@RequestBody StrategyHeaderDto strategyHeaderDto) throws Exception;
+    ResultData<StrategyHeaderDto> save(@RequestBody StrategyHeaderDto strategyHeaderDto);
 
 
 }
