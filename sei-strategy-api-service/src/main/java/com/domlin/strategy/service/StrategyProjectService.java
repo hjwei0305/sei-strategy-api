@@ -6,7 +6,6 @@ import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.dao.StrategyProjectDao;
 import com.domlin.strategy.dao.StrategyProjectRelationDao;
-import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.entity.StrategyProjectRelation;
 import org.apache.commons.lang3.StringUtils;
