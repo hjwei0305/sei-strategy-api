@@ -148,4 +148,12 @@ public class StrategyUserDto extends BaseEntityDto {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }

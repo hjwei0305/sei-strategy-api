@@ -42,15 +42,14 @@ public class StrategyProjectChange extends BaseAuditableEntity implements Serial
     @Column(name = "officer_name")
     private String officerName;
     /**
-     * 项目负责人id
-     */
-    @Column(name = "officer_id")
-    private String officerId;
-    /**
      * 部门
      */
     @Column(name = "department")
     private String department;
+
+    @Column(name = "position")
+    private String position;
+
     /**
      * 模块
      */
@@ -92,6 +91,20 @@ public class StrategyProjectChange extends BaseAuditableEntity implements Serial
     @Column(name = "change_after")
     private String changeAfter;
 
+    /**
+     * 变更后阶段
+     */
+    @Column(name = "stage")
+    private String stage;
+
+    /**
+     * 变更后阶段
+     */
+    @Column(name = "effective_date")
+    private String effectiveDate;
+
+    @Column(name = "project_code")
+    private String projectCode;
 
     public String getProjectId() {
         return projectId;
@@ -123,14 +136,6 @@ public class StrategyProjectChange extends BaseAuditableEntity implements Serial
 
     public void setOfficerName(String officerName) {
         this.officerName = officerName;
-    }
-
-    public String getOfficerId() {
-        return officerId;
-    }
-
-    public void setOfficerId(String officerId) {
-        this.officerId = officerId;
     }
 
     public String getDepartment() {
@@ -203,6 +208,38 @@ public class StrategyProjectChange extends BaseAuditableEntity implements Serial
 
     public void setChangeAfter(String changeAfter) {
         this.changeAfter = changeAfter;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public String getProjectCode() {
+        return projectCode;
+    }
+
+    public void setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
     }
 
 }

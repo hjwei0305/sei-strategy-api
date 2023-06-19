@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * 项目变更表(StrategyProjectChange)DTO类
  *
@@ -33,11 +35,6 @@ public class StrategyProjectChangeDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "项目负责人名字")
     private String officerName;
-    /**
-     * 项目负责人id
-     */
-    @ApiModelProperty(value = "项目负责人id")
-    private String officerId;
     /**
      * 部门
      */
@@ -85,6 +82,25 @@ public class StrategyProjectChangeDto extends BaseEntityDto {
     private String changeAfter;
 
 
+    @ApiModelProperty(value = "创建人")
+    private String creatorName;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdDate;
+
+    @ApiModelProperty(value = "position")
+    private String position;
+
+    @ApiModelProperty(value = "stage")
+    private String stage;
+
+    @ApiModelProperty(value = "projectCode")
+    private String projectCode;
+
+    @ApiModelProperty(value = "effectiveDate")
+    private Date effectiveDate;
+
+
     public String getProjectId() {
         return projectId;
     }
@@ -115,14 +131,6 @@ public class StrategyProjectChangeDto extends BaseEntityDto {
 
     public void setOfficerName(String officerName) {
         this.officerName = officerName;
-    }
-
-    public String getOfficerId() {
-        return officerId;
-    }
-
-    public void setOfficerId(String officerId) {
-        this.officerId = officerId;
     }
 
     public String getDepartment() {
@@ -197,4 +205,51 @@ public class StrategyProjectChangeDto extends BaseEntityDto {
         this.changeAfter = changeAfter;
     }
 
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+    public String getProjectCode() {
+        return projectCode;
+    }
+
+    public void setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
+    }
+
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
 }

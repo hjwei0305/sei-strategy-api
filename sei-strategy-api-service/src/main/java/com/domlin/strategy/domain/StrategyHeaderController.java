@@ -1,4 +1,4 @@
-package com.domlin.strategy.controller;
+package com.domlin.strategy.domain;
 
 import com.changhong.sei.basic.api.SysUserApi;
 import com.changhong.sei.core.dto.ResultData;
@@ -24,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
