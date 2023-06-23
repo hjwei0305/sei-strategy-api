@@ -20,11 +20,9 @@ public class StrategyHeaderDto  extends BaseEntityDto {
     @ApiModelProperty("strategyAnalyzeBillDto")
     private StrategyAnalyzeBillDto strategyAnalyzeBillDto;
 
-
     //用来处理多个经营策略对应一个项目的情况
     @ApiModelProperty("仅用于展示的strategyProjectDto")
     private StrategyProjectDto strategyProjectDto;
-
 
     //专门存放经营策略Code的集合
     @ApiModelProperty("strategyAnalyzeBillDto的code集合")
@@ -53,6 +51,12 @@ public class StrategyHeaderDto  extends BaseEntityDto {
      */
     @ApiModelProperty("单位负责人")
     private List<StrategyUserDto> unitManagers;
+
+    /**
+     * 模块
+     */
+    @ApiModelProperty("模块")
+    private String modules;
 
     public StrategyAnalyzeBillDto getStrategyAnalyzeBillDto() {
         return strategyAnalyzeBillDto;
@@ -108,5 +112,13 @@ public class StrategyHeaderDto  extends BaseEntityDto {
 
     public void setStrategyCodes(List<Map<String, String>> strategyCodes) {
         this.strategyCodes = strategyCodes;
+    }
+
+    public String getModules() {
+        return modules;
+    }
+
+    public void setModules(String modules) {
+        this.modules = modules;
     }
 }

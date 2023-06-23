@@ -90,6 +90,8 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         temp.setId(strategyAnalyzeBill.getId()+strategyProject.getId());
                         temp.setStrategyAnalyzeBillDto(newDto);
                         temp.setStrategyProjectDto(projectDto);
+
+                        temp.setModules(strategyAnalyzeBillDto.getModule());
                         strategyHeaderDtoList.add(temp);
                     }
                 }else {
@@ -98,6 +100,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                     StrategyHeaderDto temp = new StrategyHeaderDto();
                     temp.setId(strategyAnalyzeBill.getId());
                     temp.setStrategyAnalyzeBillDto(strategyAnalyzeBillDto);
+                    temp.setModules(strategyAnalyzeBillDto.getModule());
                     strategyHeaderDtoList.add(temp);
                 }
             }
@@ -120,9 +123,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
             List<StrategyProjectDto> strategyProjectDtoList = strategyAnalyzeBillDto.getProjectDtoList();
             //所有经营策略编码
             List<Map<String, String>> strategyCodes = strategyHeaderDto.getStrategyCodes();
-
             String projectId = null;
-
             //新增项目
             if (CollectionUtils.isNotEmpty(strategyProjectDtoList)) {
                 for (StrategyProjectDto strategyProjectDto : strategyProjectDtoList) {
@@ -137,7 +138,6 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                     }
                 }
             }
-
             //更新经营策略与项目的关系，多个经营策略，一个项目
             if (CollectionUtils.isNotEmpty(strategyCodes)&& strategyCodes.size()>0) {
                 strategyProjectService.saveStrategyProjectRelation(strategyAnalyzeBillDto.getId(), projectId);
