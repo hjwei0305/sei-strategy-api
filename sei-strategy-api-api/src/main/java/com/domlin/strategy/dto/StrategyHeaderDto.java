@@ -43,7 +43,7 @@ public class StrategyHeaderDto  extends BaseEntityDto {
     /**
      * 策略联系人
      */
-    @ApiModelProperty("策略联系人")
+    @ApiModelProperty("模块对接人")
     private List<StrategyUserDto> contacts;
 
     /**

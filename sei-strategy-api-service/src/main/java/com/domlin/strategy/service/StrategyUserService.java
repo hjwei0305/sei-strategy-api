@@ -41,4 +41,8 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
         }
         return "导入成功";
     }
+
+    public List<StrategyUser> findByModuleCode(String moduleCode) {
+        return dao.findByModuleCode(moduleCode);
+    }
 }

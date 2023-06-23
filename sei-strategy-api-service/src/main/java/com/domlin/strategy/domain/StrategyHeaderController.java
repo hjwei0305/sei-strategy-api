@@ -11,10 +11,13 @@ import com.domlin.strategy.constant.StrategyConstant;
 import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
 import com.domlin.strategy.dto.StrategyHeaderDto;
 import com.domlin.strategy.dto.StrategyProjectDto;
+import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.entity.StrategyProject;
+import com.domlin.strategy.entity.StrategyUser;
 import com.domlin.strategy.service.StrategyAnalyzeBillService;
 import com.domlin.strategy.service.StrategyProjectService;
+import com.domlin.strategy.service.StrategyUserService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -53,6 +56,9 @@ public class StrategyHeaderController implements StrategyHeaderApi {
     @Autowired
     private SysUserApi sysUserApi;
 
+    @Autowired
+    private StrategyUserService strategyUserService;
+
     @Autowired(required = false)
     private SerialService serialService;
 
@@ -73,7 +79,13 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 StrategyAnalyzeBillDto strategyAnalyzeBillDto = modelMapper.map(strategyAnalyzeBill, StrategyAnalyzeBillDto.class);
                 //项目实体
                 List<StrategyProject> StrategyProjectList = strategyProjectService.findByStrategyAnalyzeBillId(strategyAnalyzeBill.getId());
-                //如果有项目，返回封装后的项目
+                // 1、添加经营策略模块对接人
+                List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
+
+
+                /**
+                 * 这里会涉及多个Header，因为需求不合理，所以这里做了特殊处理
+                 */
                 if (CollectionUtils.isNotEmpty(StrategyProjectList)) {
                     //项目dto
                     List<StrategyProjectDto> strategyProjectDtoList = new ArrayList<>();
@@ -90,17 +102,25 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         temp.setId(strategyAnalyzeBill.getId()+strategyProject.getId());
                         temp.setStrategyAnalyzeBillDto(newDto);
                         temp.setStrategyProjectDto(projectDto);
-
                         temp.setModules(strategyAnalyzeBillDto.getModule());
+
+
+                        //添加经营策略模块对接人
+                        temp.setContacts(contacts);
                         strategyHeaderDtoList.add(temp);
                     }
                 }else {
-                    //没有项目，只返回经营策略
-                    //返回临时类
+                    /**
+                     * 这里只有单个Header，所以这里做了特殊处理
+                     */
                     StrategyHeaderDto temp = new StrategyHeaderDto();
                     temp.setId(strategyAnalyzeBill.getId());
                     temp.setStrategyAnalyzeBillDto(strategyAnalyzeBillDto);
                     temp.setModules(strategyAnalyzeBillDto.getModule());
+
+
+                    //添加经营策略模块对接人
+                    temp.setContacts(contacts);
                     strategyHeaderDtoList.add(temp);
                 }
             }
@@ -109,6 +129,26 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         newPageResult.setTotal(pageResult.getTotal());
         return ResultData.success(newPageResult);
     }
+
+    /**
+     * 获取经营策略模块对接人
+     * @param strategyAnalyzeBillDto
+     * @return
+     */
+    public List<StrategyUserDto> getContacts(StrategyAnalyzeBillDto strategyAnalyzeBillDto){
+        // 通过moduleCode查出对应的模块对接人
+        List<StrategyUser> contacts = strategyUserService.findByModuleCode(strategyAnalyzeBillDto.getModuleCode());
+        // 转换成dto
+        List<StrategyUserDto> strategyUserDtoList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(contacts)) {
+            for (StrategyUser strategyUser : contacts) {
+                StrategyUserDto strategyUserDto = modelMapper.map(strategyUser, StrategyUserDto.class);
+                strategyUserDtoList.add(strategyUserDto);
+            }
+        }
+        return strategyUserDtoList;
+    }
+
 
     @Override
     public ResultData<StrategyHeaderDto> save(StrategyHeaderDto strategyHeaderDto) {
