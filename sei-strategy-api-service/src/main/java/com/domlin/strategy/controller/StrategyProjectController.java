@@ -67,4 +67,15 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
         }
         return ResultData.fail("参数不能为空");
     }
+
+    @Override
+    public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
+        System.out.println("strategyProject = " + strategyProject);
+        if (strategyProject != null) {
+            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
+            service.save(entity);
+            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
+        }
+        return ResultData.fail("参数不能为空");
+    }
 }

@@ -76,9 +76,6 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
         if (CollectionUtils.isNotEmpty(rows)) {
             for (int i = 0; i < rows.size(); i++) {
                 StrategyAnalyzeBillDto dto = modelMapper.map(rows.get(i), StrategyAnalyzeBillDto.class);
-//                ResultData<SysUserDto> employee = sysUserApi.findByEmployeeCode(rows.get(i).getCode());
-//                dto.setCreatorPosition(employee.getData().getSpName());
-//                dto.setCreatorPosition("齐天大圣");
                 newRows.add(dto);
             }
             newPageResult.setRows(newRows);

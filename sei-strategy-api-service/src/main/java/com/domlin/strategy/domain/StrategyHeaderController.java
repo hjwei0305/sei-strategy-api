@@ -117,8 +117,10 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                     temp.setId(strategyAnalyzeBill.getId());
                     temp.setStrategyAnalyzeBillDto(strategyAnalyzeBillDto);
                     temp.setModules(strategyAnalyzeBillDto.getModule());
-
-
+                    //专门处理关联项目阶段
+                    StrategyProjectDto strategyProjectDto = new StrategyProjectDto();
+                    strategyProjectDto.setStage(StrategyConstant.STAGE_RELEVANCY);
+                    temp.setStrategyProjectDto(strategyProjectDto);
                     //添加经营策略模块对接人
                     temp.setContacts(contacts);
                     strategyHeaderDtoList.add(temp);
@@ -169,26 +171,27 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 for (StrategyProjectDto strategyProjectDto : strategyProjectDtoList) {
                     StrategyProject map = modelMapper.map(strategyProjectDto, StrategyProject.class);
                     map.setCode(serialService.getNumber("strategyProject"));
+                    strategyProjectDto.setStage(StrategyConstant.STAGE_SUBMIT);
                     OperateResultWithData<StrategyProject> save = strategyProjectService.save(modelMapper.map(strategyProjectDto, StrategyProject.class));
                     projectId = save.getData().getId();
                     //单个经营策略与项目关联关系，如果存在多经营策略，就会在下面一段逻辑更新。
                     if (CollectionUtils.isEmpty(strategyCodes)|| strategyCodes.size()==0) {
                         strategyProjectService.saveStrategyProjectRelation(strategyAnalyzeBillDto.getId(), projectId);
-                        updateStage(strategyAnalyzeBillDto.getId(), StrategyConstant.STAGE_SUBIMIT);
+                        updateStage(strategyAnalyzeBillDto.getId(), StrategyConstant.STAGE_SUBMIT);
                     }
                 }
             }
             //更新经营策略与项目的关系，多个经营策略，一个项目
             if (CollectionUtils.isNotEmpty(strategyCodes)&& strategyCodes.size()>0) {
                 strategyProjectService.saveStrategyProjectRelation(strategyAnalyzeBillDto.getId(), projectId);
-                updateStage(strategyAnalyzeBillDto.getId(), StrategyConstant.STAGE_SUBIMIT);
+                updateStage(strategyAnalyzeBillDto.getId(), StrategyConstant.STAGE_SUBMIT);
                 for (Map<String, String> strategyCode : strategyCodes) {
                     //经营策略id
                     String id = strategyCode.get("id");
                     //新增经营策略与项目关联关系
                     strategyProjectService.saveStrategyProjectRelation(id, projectId);
                     //通过经营策略id，更新经营策略stage
-                    updateStage(id, StrategyConstant.STAGE_SUBIMIT);
+                    updateStage(id, StrategyConstant.STAGE_SUBMIT);
                 }
             }
         }

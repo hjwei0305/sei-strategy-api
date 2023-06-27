@@ -73,6 +73,12 @@ public class StrategyProject extends BaseAuditableEntity implements Serializable
     @Column(name = "first_trial_date")
     private Date firstTrialDate;
 
+    /**
+     * 项目阶段
+     */
+    @Column(name = "stage")
+    private String stage;
+
 
     public String getName() {
         return name;
@@ -152,6 +158,14 @@ public class StrategyProject extends BaseAuditableEntity implements Serializable
 
     public void setFirstTrialDate(Date firstTrialDate) {
         this.firstTrialDate = firstTrialDate;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 
 }

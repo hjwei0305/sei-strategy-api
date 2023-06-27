@@ -67,6 +67,11 @@ public class StrategyProjectDto extends BaseEntityDto {
     private Date firstTrialDate;
 
 
+    /**
+     * 项目阶段
+     */
+    @ApiModelProperty(value = "项目阶段")
+    private String stage;
 
     /**
      * 策略负责人
@@ -202,5 +207,13 @@ public class StrategyProjectDto extends BaseEntityDto {
 
     public void setUnitManager(StrategyUserDto unitManager) {
         this.unitManager = unitManager;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 }

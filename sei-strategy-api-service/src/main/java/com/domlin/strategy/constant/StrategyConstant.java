@@ -9,9 +9,14 @@ package com.domlin.strategy.constant;
 public class StrategyConstant {
 
     /**
+     * 关联项目状态
+     */
+    public static final String STAGE_RELEVANCY = "relevancy";
+
+    /**
      * 提交状态
      */
-    public static final String STAGE_SUBIMIT = "subimit";
+    public static final String STAGE_SUBMIT = "submit";
 
     /**
      * 变更

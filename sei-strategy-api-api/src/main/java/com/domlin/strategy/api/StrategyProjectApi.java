@@ -35,4 +35,9 @@ public interface StrategyProjectApi extends BaseEntityApi<StrategyProjectDto> {
     @ApiOperation("更新StrategyProject")
     ResultData<StrategyProjectDto> update(@RequestBody StrategyProjectDto strategyProject);
 
+    //写一个方法，save StrategyProject
+    @PostMapping(path = "save",consumes = "application/json")
+    @ApiOperation("保存StrategyProject")
+    ResultData<StrategyProjectDto> save(@RequestBody StrategyProjectDto strategyProject);
+
 }
