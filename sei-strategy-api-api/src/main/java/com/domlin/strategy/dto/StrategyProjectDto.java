@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 项目(StrategyProject)DTO类
@@ -76,7 +77,7 @@ public class StrategyProjectDto extends BaseEntityDto {
     /**
      * 策略负责人
      */
-    private StrategyUserDto offcer;
+    private List<StrategyUserDto> officers;
 
     /**
      * 策略管理员
@@ -96,6 +97,26 @@ public class StrategyProjectDto extends BaseEntityDto {
     private StrategyUserDto unitManager;
 
 
+    @Override
+    public String toString() {
+        return "StrategyProjectDto{" +
+                "name='" + name + '\'' +
+                ", level='" + level + '\'' +
+                ", style='" + style + '\'' +
+                ", code='" + code + '\'' +
+                ", submitDate=" + submitDate +
+                ", content='" + content + '\'' +
+                ", significance='" + significance + '\'' +
+                ", target='" + target + '\'' +
+                ", isPastFirstTrial=" + isPastFirstTrial +
+                ", firstTrialDate=" + firstTrialDate +
+                ", stage='" + stage + '\'' +
+                ", officers=" + officers +
+                ", manager=" + manager +
+                ", contact=" + contact +
+                ", unitManager=" + unitManager +
+                '}';
+    }
 
     public String getName() {
         return name;
@@ -177,12 +198,12 @@ public class StrategyProjectDto extends BaseEntityDto {
         this.firstTrialDate = firstTrialDate;
     }
 
-    public StrategyUserDto getOffcer() {
-        return offcer;
+    public List<StrategyUserDto> getOfficers() {
+        return officers;
     }
 
-    public void setOffcer(StrategyUserDto offcer) {
-        this.offcer = offcer;
+    public void setOfficers(List<StrategyUserDto> officers) {
+        this.officers = officers;
     }
 
     public StrategyUserDto getManager() {

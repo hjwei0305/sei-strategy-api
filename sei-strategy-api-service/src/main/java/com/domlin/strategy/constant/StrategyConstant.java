@@ -19,6 +19,11 @@ public class StrategyConstant {
     public static final String STAGE_SUBMIT = "submit";
 
     /**
+     * 审核状态
+     */
+    public static final String STAGE_AUDIT = "audit";
+
+    /**
      * 变更
      */
     public static final String CHANGE = "1";

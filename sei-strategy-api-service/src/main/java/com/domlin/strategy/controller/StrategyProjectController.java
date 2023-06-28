@@ -6,6 +6,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.api.StrategyProjectApi;
+import com.domlin.strategy.constant.StrategyConstant;
 import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.service.StrategyProjectService;
@@ -70,12 +71,13 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
     @Override
     public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
-        System.out.println("strategyProject = " + strategyProject);
-        if (strategyProject != null) {
-            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
-            service.save(entity);
-            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
-        }
+        strategyProject.setStage(StrategyConstant.STAGE_AUDIT);
+        System.out.println("strategyProject = " + strategyProject.toString());
+//        if (strategyProject != null) {
+//            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
+//            service.save(entity);
+//            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
+//        }
         return ResultData.fail("参数不能为空");
     }
 }
