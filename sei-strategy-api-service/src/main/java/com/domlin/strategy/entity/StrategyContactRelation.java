@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * 经营策略与项目联系人关联表(StrategyContactRelation)实体类
+ * 项目与模块对接人人关联表(StrategyContactRelation)实体类
  *
  * @author sei
  * @since 2023-05-09 15:12:20
@@ -24,8 +24,8 @@ public class StrategyContactRelation extends BaseAuditableEntity implements Seri
     /**
      * 经营策略id
      */
-    @Column(name = "strategy_id")
-    private String strategyId;
+    @Column(name = "project_id")
+    private String projectId;
     /**
      * 经营策略成员id
      */
@@ -33,12 +33,12 @@ public class StrategyContactRelation extends BaseAuditableEntity implements Seri
     private String userId;
 
 
-    public String getStrategyId() {
-        return strategyId;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public void setStrategyId(String strategyId) {
-        this.strategyId = strategyId;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getUserId() {

@@ -14,23 +14,23 @@ import io.swagger.annotations.ApiModelProperty;
 public class StrategyContactRelationDto extends BaseEntityDto {
     private static final long serialVersionUID = -17307498840180054L;
     /**
-     * 经营策略id
+     * 项目id
      */
-    @ApiModelProperty(value = "经营策略id")
-    private String strategyId;
+    @ApiModelProperty(value = "项目id")
+    private String projectId;
+
     /**
      * 经营策略成员id
      */
     @ApiModelProperty(value = "经营策略成员id")
     private String userId;
 
-
-    public String getStrategyId() {
-        return strategyId;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public void setStrategyId(String strategyId) {
-        this.strategyId = strategyId;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getUserId() {

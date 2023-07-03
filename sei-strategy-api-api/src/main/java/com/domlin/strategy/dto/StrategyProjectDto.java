@@ -74,6 +74,23 @@ public class StrategyProjectDto extends BaseEntityDto {
     @ApiModelProperty(value = "项目阶段")
     private String stage;
 
+
+    /**
+     * 前端展示用，千万必要用来处理业务逻辑
+     */
+    private String officerCodes;
+
+
+    /**
+     * 前端展示用，千万必要用来处理业务逻辑
+     */
+    private String officerNames;
+
+    /**
+     * 前端展示用，千万必要用来处理业务逻辑
+     */
+    private String officerPositions;
+
     /**
      * 策略负责人
      */
@@ -82,19 +99,19 @@ public class StrategyProjectDto extends BaseEntityDto {
     /**
      * 策略管理员
      */
-    private StrategyUserDto manager;
+    private List<StrategyUserDto> managers;
 
 
     /**
      * 策略联系人
      */
-    private StrategyUserDto contact;
+    private List<StrategyUserDto> contacts;
 
 
     /**
      * 单位负责人
      */
-    private StrategyUserDto unitManager;
+    private List<StrategyUserDto> unitManagers;
 
 
     @Override
@@ -112,9 +129,9 @@ public class StrategyProjectDto extends BaseEntityDto {
                 ", firstTrialDate=" + firstTrialDate +
                 ", stage='" + stage + '\'' +
                 ", officers=" + officers +
-                ", manager=" + manager +
-                ", contact=" + contact +
-                ", unitManager=" + unitManager +
+                ", managers=" + managers +
+                ", contacts=" + contacts +
+                ", unitManagers=" + unitManagers +
                 '}';
     }
 
@@ -206,35 +223,59 @@ public class StrategyProjectDto extends BaseEntityDto {
         this.officers = officers;
     }
 
-    public StrategyUserDto getManager() {
-        return manager;
-    }
-
-    public void setManager(StrategyUserDto manager) {
-        this.manager = manager;
-    }
-
-    public StrategyUserDto getContact() {
-        return contact;
-    }
-
-    public void setContact(StrategyUserDto contact) {
-        this.contact = contact;
-    }
-
-    public StrategyUserDto getUnitManager() {
-        return unitManager;
-    }
-
-    public void setUnitManager(StrategyUserDto unitManager) {
-        this.unitManager = unitManager;
-    }
-
     public String getStage() {
         return stage;
     }
 
     public void setStage(String stage) {
         this.stage = stage;
+    }
+
+    public List<StrategyUserDto> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(List<StrategyUserDto> managers) {
+        this.managers = managers;
+    }
+
+    public List<StrategyUserDto> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<StrategyUserDto> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<StrategyUserDto> getUnitManagers() {
+        return unitManagers;
+    }
+
+    public void setUnitManagers(List<StrategyUserDto> unitManagers) {
+        this.unitManagers = unitManagers;
+    }
+
+    public String getOfficerCodes() {
+        return officerCodes;
+    }
+
+    public void setOfficerCodes(String officerCodes) {
+        this.officerCodes = officerCodes;
+    }
+
+    public String getOfficerNames() {
+        return officerNames;
+    }
+
+    public void setOfficerNames(String officerNames) {
+        this.officerNames = officerNames;
+    }
+
+    public String getOfficerPositions() {
+        return officerPositions;
+    }
+
+    public void setOfficerPositions(String officerPositions) {
+        this.officerPositions = officerPositions;
     }
 }

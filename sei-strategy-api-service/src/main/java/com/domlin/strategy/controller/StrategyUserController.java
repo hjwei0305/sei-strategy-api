@@ -1,13 +1,15 @@
 package com.domlin.strategy.controller;
 
+import com.changhong.sei.basic.api.SysUserApi;
+import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.domlin.strategy.api.StrategyUserApi;
 import com.domlin.strategy.dto.StrategyUserDto;
-import com.domlin.strategy.entity.StrategyProjectVerify;
 import com.domlin.strategy.entity.StrategyUser;
 import com.domlin.strategy.service.StrategyUserService;
 import io.swagger.annotations.Api;
@@ -15,6 +17,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +39,9 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
      */
     @Autowired
     private StrategyUserService service;
+
+    @Autowired
+    private SysUserApi sysUserApi;
 
     @Override
     public BaseEntityService<StrategyUser> getService() {
@@ -86,5 +92,23 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
         }
         String s = service.uploadStrategyUser(newRow);
         return ResultData.success(s);
+    }
+
+    /**
+     * 保存人员信息
+     * @param strategyUserDto
+     * @return
+     */
+    @Override
+    public ResultData<StrategyUserDto> save(@RequestBody StrategyUserDto strategyUserDto){
+        if (strategyUserDto != null){
+            ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(strategyUserDto.getUserCode());
+            if (byEmployeeCode.getData() != null){
+                strategyUserDto.setPosition(byEmployeeCode.getData().getSpName());
+            }
+            OperateResultWithData<StrategyUser> save = service.save(modelMapper.map(strategyUserDto, StrategyUser.class));
+            return ResultData.success(modelMapper.map(save,StrategyUserDto.class));
+        }
+        return ResultData.fail("参数为空");
     }
 }

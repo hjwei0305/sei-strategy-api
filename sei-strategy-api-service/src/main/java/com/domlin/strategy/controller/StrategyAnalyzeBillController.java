@@ -1,7 +1,6 @@
 package com.domlin.strategy.controller;
 
-import com.changhong.sei.basic.api.SysUserApi;
-import com.changhong.sei.basic.dto.SysUserDto;
+
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
@@ -10,7 +9,6 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.api.StrategyAnalyzeBillApi;
 import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
-import com.domlin.strategy.dto.StrategyHeaderDto;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.service.StrategyAnalyzeBillService;
 import com.domlin.strategy.service.StrategyProjectService;
@@ -52,9 +50,6 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
 
     @Autowired
     private ModelMapper modelMapper;
-
-    @Autowired
-    private SysUserApi sysUserApi;
 
     @Autowired(required = false)
     private SerialService serialService;

@@ -62,6 +62,12 @@ public class StrategyHeaderController implements StrategyHeaderApi {
     @Autowired(required = false)
     private SerialService serialService;
 
+    /**
+     * 分页查询经营策略
+     *
+     * @param search 查询条件
+     * @return 经营策略分页数据
+     */
     @Override
     public ResultData<PageResult<StrategyHeaderDto>> findByPage(Search search) {
         //返回包装类
@@ -81,22 +87,21 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 List<StrategyProject> StrategyProjectList = strategyProjectService.findByStrategyAnalyzeBillId(strategyAnalyzeBill.getId());
                 // 1、添加经营策略模块对接人
                 List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
-
+                // 2、添加经项目负责人
 
                 /**
                  * 这里会涉及多个Header，因为需求不合理，所以这里做了特殊处理
                  */
                 if (CollectionUtils.isNotEmpty(StrategyProjectList)) {
-                    //项目dto
-                    List<StrategyProjectDto> strategyProjectDtoList = new ArrayList<>();
                     for (StrategyProject strategyProject : StrategyProjectList) {
                         //拷贝一份经营策略，多个项目要展示多次
                         StrategyAnalyzeBillDto newDto = new StrategyAnalyzeBillDto();
                         BeanUtils.copyProperties(strategyAnalyzeBillDto, newDto);
                         StrategyProjectDto projectDto = modelMapper.map(strategyProject, StrategyProjectDto.class);
-                        strategyProjectDtoList.add(projectDto);
-                        //处理关联关系
-                        newDto.setProjectDtoList(strategyProjectDtoList);
+                        //1、添加经营策略模块对接人
+                        projectDto.setContacts(contacts);
+                        //2、添加经营策略项目负责人
+                        getOfficers(projectDto);
                         //返回临时类
                         StrategyHeaderDto temp = new StrategyHeaderDto();
                         temp.setId(strategyAnalyzeBill.getId()+strategyProject.getId());
@@ -105,8 +110,6 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         temp.setModules(strategyAnalyzeBillDto.getModule());
 
 
-                        //添加经营策略模块对接人
-                        temp.setContacts(contacts);
                         strategyHeaderDtoList.add(temp);
                     }
                 }else {
@@ -120,9 +123,10 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                     //专门处理关联项目阶段
                     StrategyProjectDto strategyProjectDto = new StrategyProjectDto();
                     strategyProjectDto.setStage(StrategyConstant.STAGE_RELEVANCY);
-                    temp.setStrategyProjectDto(strategyProjectDto);
                     //添加经营策略模块对接人
-                    temp.setContacts(contacts);
+                    strategyProjectDto.setContacts(contacts);
+                    temp.setStrategyProjectDto(strategyProjectDto);
+
                     strategyHeaderDtoList.add(temp);
                 }
             }
@@ -151,6 +155,34 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         return strategyUserDtoList;
     }
 
+    /**
+     * 获取经营策略项目负责人
+     * @param projectDto
+     * @return
+     */
+    public void getOfficers(StrategyProjectDto projectDto){
+        // 通过经营策略id查出对应的项目负责人
+        List<StrategyUser> officers = strategyUserService.findOfficerByProjectId(projectDto.getId());
+        // offcerCodes
+        String officerCodes = "";
+        String officerNames = "";
+        String officePosition = "";
+        // 转换成dto
+        List<StrategyUserDto> strategyUserDtoList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(officers)) {
+            for (StrategyUser strategyUser : officers) {
+                StrategyUserDto strategyUserDto = modelMapper.map(strategyUser, StrategyUserDto.class);
+                strategyUserDtoList.add(strategyUserDto);
+                officerCodes += strategyUserDto.getUserCode() + ",";
+                officerNames += strategyUserDto.getUserName() + ",";
+                officePosition += strategyUserDto.getPosition() + ",";
+            }
+        }
+        projectDto.setOfficers(strategyUserDtoList);
+        projectDto.setOfficerCodes(officerCodes);
+        projectDto.setOfficerNames(officerNames);
+        projectDto.setOfficerPositions(officePosition);
+    }
 
     @Override
     public ResultData<StrategyHeaderDto> save(StrategyHeaderDto strategyHeaderDto) {

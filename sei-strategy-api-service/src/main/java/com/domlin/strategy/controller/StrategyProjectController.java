@@ -1,15 +1,20 @@
 package com.domlin.strategy.controller;
 
+import com.changhong.sei.basic.api.SysUserApi;
+import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.domlin.strategy.api.StrategyProjectApi;
-import com.domlin.strategy.constant.StrategyConstant;
 import com.domlin.strategy.dto.StrategyProjectDto;
+import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyProject;
+import com.domlin.strategy.entity.StrategyUser;
 import com.domlin.strategy.service.StrategyProjectService;
+import com.domlin.strategy.service.StrategyUserService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -36,6 +41,12 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
      */
     @Autowired
     private StrategyProjectService service;
+
+    @Autowired
+    private StrategyUserService userService;
+
+    @Autowired
+    private SysUserApi sysUserApi;
 
     @Override
     public BaseEntityService<StrategyProject> getService() {
@@ -71,13 +82,40 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
     @Override
     public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
-        strategyProject.setStage(StrategyConstant.STAGE_AUDIT);
-        System.out.println("strategyProject = " + strategyProject.toString());
-//        if (strategyProject != null) {
-//            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
-//            service.save(entity);
-//            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
-//        }
+
+        if (strategyProject != null) {
+            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
+
+            //保存模块对接人关联关系
+            List<StrategyUserDto> contacts = strategyProject.getContacts();
+            if (contacts == null || contacts.size() == 0){
+                return ResultData.fail("模块对接人不能为空");
+            }
+            userService.addContactRelation(strategyProject.getId(), contacts.get(0).getId());
+
+            //保存项目负责人关联关系
+            List<StrategyUserDto> officers = strategyProject.getOfficers();
+            for (StrategyUserDto officer : officers) {
+                String userCode = officer.getUserCode();
+                StrategyUser byUserCode = userService.findByUserCode(userCode);
+                if (byUserCode == null){
+                    ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
+                    StrategyUser strategyUser = new StrategyUser();
+                    strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
+                    strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
+                    strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
+                    strategyUser.setUserStatue(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
+                    strategyUser.setPosition(byEmployeeCode.getData().getSpName());
+                    strategyUser.setUserId(byEmployeeCode.getData().getId());
+                    OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
+                    userService.addOfficerelation(strategyProject.getId(), save.getData().getId());
+                }
+            }
+
+
+            service.save(entity);
+            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
+        }
         return ResultData.fail("参数不能为空");
     }
 }

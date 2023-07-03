@@ -41,12 +41,6 @@ public class StrategyHeaderDto  extends BaseEntityDto {
     private List<StrategyUserDto> managers;
 
     /**
-     * 策略联系人
-     */
-    @ApiModelProperty("模块对接人")
-    private List<StrategyUserDto> contacts;
-
-    /**
      * 单位负责人
      */
     @ApiModelProperty("单位负责人")
@@ -82,13 +76,6 @@ public class StrategyHeaderDto  extends BaseEntityDto {
         this.managers = managers;
     }
 
-    public List<StrategyUserDto> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<StrategyUserDto> contacts) {
-        this.contacts = contacts;
-    }
 
     public List<StrategyUserDto> getUnitManagers() {
         return unitManagers;

@@ -79,7 +79,7 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "变更次数")
     private Integer changeCount;
 
-    //创建一个strategyProjectDto的集合
+    //保存用，查询不用
     @ApiModelProperty("strategyProjectDto的集合")
     private List<StrategyProjectDto> projectDtoList;
 
