@@ -88,7 +88,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 // 1、添加经营策略模块对接人
                 List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
                 // 2、添加经项目负责人
-
+                // 3、添加项目相关方
                 /**
                  * 这里会涉及多个Header，因为需求不合理，所以这里做了特殊处理
                  */
@@ -102,13 +102,14 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         projectDto.setContacts(contacts);
                         //2、添加经营策略项目负责人
                         getOfficers(projectDto);
+                        // 3、添加项目相关方
+                        getRelates(projectDto);
                         //返回临时类
                         StrategyHeaderDto temp = new StrategyHeaderDto();
                         temp.setId(strategyAnalyzeBill.getId()+strategyProject.getId());
                         temp.setStrategyAnalyzeBillDto(newDto);
                         temp.setStrategyProjectDto(projectDto);
                         temp.setModules(strategyAnalyzeBillDto.getModule());
-
 
                         strategyHeaderDtoList.add(temp);
                     }
@@ -134,6 +135,20 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         newPageResult.setRows(strategyHeaderDtoList);
         newPageResult.setTotal(pageResult.getTotal());
         return ResultData.success(newPageResult);
+    }
+
+    public void getRelates(StrategyProjectDto projectDto) {
+        // 通过项目id查出项目相关方
+        List<StrategyUser> relates = strategyUserService.findByStrategyProjectId(projectDto.getId());
+        // 转换成dto
+        List<StrategyUserDto> strategyRelateDtoList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(relates)) {
+            for (StrategyUser strategyRelate : relates) {
+                StrategyUserDto strategyRelateDto = modelMapper.map(strategyRelate, StrategyUserDto.class);
+                strategyRelateDtoList.add(strategyRelateDto);
+            }
+        }
+        projectDto.setRelates(strategyRelateDtoList);
     }
 
     /**

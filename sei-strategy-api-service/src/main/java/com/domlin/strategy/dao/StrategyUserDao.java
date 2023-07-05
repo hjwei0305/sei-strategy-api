@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 人员信息(StrategyUser)数据库访问类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:33
  */
 @Repository
@@ -28,4 +28,6 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
     @Query("select su from StrategyUser su where su.id in (select sp.userId from StrategyProjectOfficerRelation sp where sp.projectId = :projectId)")
     List<StrategyUser> findOfficerByProjectId(String projectId);
 
+    @Query("select su from StrategyUser su where su.id in (select sr.userId from StrategyRelatedRelation sr where sr.projectId = :projectId)")
+    List<StrategyUser> findRelatedByProjectId(String projectId);
 }

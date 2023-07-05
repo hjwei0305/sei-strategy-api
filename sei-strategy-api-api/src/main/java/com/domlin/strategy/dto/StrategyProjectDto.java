@@ -10,12 +10,14 @@ import java.util.List;
 /**
  * 项目(StrategyProject)DTO类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:12:51
  */
 @ApiModel(description = "项目DTO")
 public class StrategyProjectDto extends BaseEntityDto {
+
     private static final long serialVersionUID = 976187078714851835L;
+
     /**
      * 项目名称
      */
@@ -66,20 +68,16 @@ public class StrategyProjectDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "初审日期")
     private Date firstTrialDate;
-
-
     /**
      * 项目阶段
      */
     @ApiModelProperty(value = "项目阶段")
     private String stage;
 
-
     /**
      * 前端展示用，千万必要用来处理业务逻辑
      */
     private String officerCodes;
-
 
     /**
      * 前端展示用，千万必要用来处理业务逻辑
@@ -101,39 +99,20 @@ public class StrategyProjectDto extends BaseEntityDto {
      */
     private List<StrategyUserDto> managers;
 
-
     /**
      * 策略联系人
      */
     private List<StrategyUserDto> contacts;
-
 
     /**
      * 单位负责人
      */
     private List<StrategyUserDto> unitManagers;
 
-
-    @Override
-    public String toString() {
-        return "StrategyProjectDto{" +
-                "name='" + name + '\'' +
-                ", level='" + level + '\'' +
-                ", style='" + style + '\'' +
-                ", code='" + code + '\'' +
-                ", submitDate=" + submitDate +
-                ", content='" + content + '\'' +
-                ", significance='" + significance + '\'' +
-                ", target='" + target + '\'' +
-                ", isPastFirstTrial=" + isPastFirstTrial +
-                ", firstTrialDate=" + firstTrialDate +
-                ", stage='" + stage + '\'' +
-                ", officers=" + officers +
-                ", managers=" + managers +
-                ", contacts=" + contacts +
-                ", unitManagers=" + unitManagers +
-                '}';
-    }
+    /**
+     * 项目相关方
+     */
+    private List<StrategyUserDto> relates;
 
     public String getName() {
         return name;
@@ -277,5 +256,13 @@ public class StrategyProjectDto extends BaseEntityDto {
 
     public void setOfficerPositions(String officerPositions) {
         this.officerPositions = officerPositions;
+    }
+
+    public List<StrategyUserDto> getRelates() {
+        return relates;
+    }
+
+    public void setRelates(List<StrategyUserDto> relates) {
+        this.relates = relates;
     }
 }

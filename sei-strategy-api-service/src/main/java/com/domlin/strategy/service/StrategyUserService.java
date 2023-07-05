@@ -4,9 +4,11 @@ import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.dao.StrategyContactRelationDao;
 import com.domlin.strategy.dao.StrategyProjectOfficerRelationDao;
+import com.domlin.strategy.dao.StrategyRelatedRelationDao;
 import com.domlin.strategy.dao.StrategyUserDao;
 import com.domlin.strategy.entity.StrategyContactRelation;
 import com.domlin.strategy.entity.StrategyProjectOfficerRelation;
+import com.domlin.strategy.entity.StrategyRelatedRelation;
 import com.domlin.strategy.entity.StrategyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * 人员信息(StrategyUser)业务逻辑实现类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:33
  */
 @Service
@@ -31,6 +33,9 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
 
     @Autowired
     private StrategyProjectOfficerRelationDao officerRelationDao;
+
+    @Autowired
+    private StrategyRelatedRelationDao relatedRelationDao;
 
     @Override
     protected BaseEntityDao<StrategyUser> getDao() {
@@ -97,6 +102,9 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
      */
     public void addOfficerelation(String projectId, String userId) {
         Integer count = officerRelationDao.countByProjectAndUserId(projectId, userId);
+        if (count > 0) {
+            return;
+        }
         StrategyProjectOfficerRelation contactRelation = new StrategyProjectOfficerRelation();
         contactRelation.setProjectId(projectId);
         contactRelation.setUserId(userId);
@@ -113,4 +121,18 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
     }
 
 
+    public void addRelateRelation(String id, String id1) {
+        Integer count = relatedRelationDao.countByProjectAndUserId(id, id1);
+        if (count > 0) {
+            return;
+        }
+        StrategyRelatedRelation relatedRelation = new StrategyRelatedRelation();
+        relatedRelation.setProjectId(id);
+        relatedRelation.setUserId(id1);
+        relatedRelationDao.save(relatedRelation);
+    }
+
+    public List<StrategyUser> findByStrategyProjectId(String id) {
+        return dao.findRelatedByProjectId(id);
+    }
 }

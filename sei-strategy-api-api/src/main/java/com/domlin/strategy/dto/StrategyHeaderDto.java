@@ -1,9 +1,7 @@
 package com.domlin.strategy.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
@@ -28,11 +26,6 @@ public class StrategyHeaderDto  extends BaseEntityDto {
     @ApiModelProperty("strategyAnalyzeBillDto的code集合")
     private List<Map<String,String>> strategyCodes;
 
-    /**
-     * 策略负责人
-     */
-    @ApiModelProperty("策略负责人")
-    private List<StrategyUserDto> offcers;
 
     /**
      * 策略管理员
@@ -58,14 +51,6 @@ public class StrategyHeaderDto  extends BaseEntityDto {
 
     public void setStrategyAnalyzeBillDto(StrategyAnalyzeBillDto strategyAnalyzeBillDto) {
         this.strategyAnalyzeBillDto = strategyAnalyzeBillDto;
-    }
-
-    public List<StrategyUserDto> getOffcers() {
-        return offcers;
-    }
-
-    public void setOffcers(List<StrategyUserDto> offcers) {
-        this.offcers = offcers;
     }
 
     public List<StrategyUserDto> getManagers() {

@@ -15,6 +15,7 @@ import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.entity.StrategyUser;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
+import io.netty.util.internal.StringUtil;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * 项目(StrategyProject)控制类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:12:50
  */
 @RestController
@@ -108,11 +109,34 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
                     strategyUser.setUserId(byEmployeeCode.getData().getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
-                    userService.addOfficerelation(strategyProject.getId(), save.getData().getId());
+                    byUserCode = save.getData();
                 }
+                userService.addOfficerelation(strategyProject.getId(), byUserCode.getId());
             }
 
-
+            //保存项目相关方
+            List<StrategyUserDto> relates = strategyProject.getRelates();
+            for (StrategyUserDto relate : relates) {
+                String userCode = relate.getUserCode();
+                if(StringUtil.isNullOrEmpty(userCode)){
+                    continue;
+                }
+                StrategyUser byUserCode = userService.findByUserCode(userCode);
+                if (byUserCode == null){
+                    ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
+                    StrategyUser strategyUser = new StrategyUser();
+                    strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
+                    strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
+                    strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
+                    strategyUser.setUserStatue(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
+                    strategyUser.setPosition(byEmployeeCode.getData().getSpName());
+                    strategyUser.setUserId(byEmployeeCode.getData().getId());
+                    OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
+                    byUserCode = save.getData();
+                }
+                userService.addRelateRelation(strategyProject.getId(), byUserCode.getId());
+            }
+            //  保存项目
             service.save(entity);
             return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
         }

@@ -10,9 +10,9 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * 项目相关人员关联表(StrategyRelatedRelation)实体类
+ * 项目相关方关联表(StrategyRelatedRelation)实体类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:30
  */
 @Entity
