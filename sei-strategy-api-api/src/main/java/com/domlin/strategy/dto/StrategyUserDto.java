@@ -54,7 +54,7 @@ public class StrategyUserDto extends BaseEntityDto {
      * 人员状态
      */
     @ApiModelProperty(value = "人员状态")
-    private String userStatue;
+    private String userState;
 
     @ApiModelProperty(value = "创建人")
     private String creatorName;
@@ -125,12 +125,12 @@ public class StrategyUserDto extends BaseEntityDto {
         this.department = department;
     }
 
-    public String getUserStatue() {
-        return userStatue;
+    public String getuserState() {
+        return userState;
     }
 
-    public void setUserStatue(String userStatue) {
-        this.userStatue = userStatue;
+    public void setuserState(String userState) {
+        this.userState = userState;
     }
 
     public String getCreatorName() {

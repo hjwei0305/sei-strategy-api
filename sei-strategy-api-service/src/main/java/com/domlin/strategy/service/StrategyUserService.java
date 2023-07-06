@@ -120,7 +120,19 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
         return dao.findOfficerByProjectId(projectId);
     }
 
+    /**
+     * 根据项目id删除项目负责人
+     */
+    public void deleteOfficerByProjectId(String projectId) {
+        officerRelationDao.deleteByProjectId(projectId);
+    }
 
+    /**
+     * 根据项目id和用户id添加项目相关方关系
+     * @param id
+     * @param id1
+     * @return
+     */
     public void addRelateRelation(String id, String id1) {
         Integer count = relatedRelationDao.countByProjectAndUserId(id, id1);
         if (count > 0) {
@@ -132,7 +144,21 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
         relatedRelationDao.save(relatedRelation);
     }
 
+    /**
+     * 根据项目id查询相关方
+     * @param id
+     * @return
+     */
     public List<StrategyUser> findByStrategyProjectId(String id) {
         return dao.findRelatedByProjectId(id);
+    }
+
+    /**
+     * 根据项目id删除相关方
+     * @param id
+     * @return
+     */
+    public void deleteRelatedByProjectId(String id) {
+        relatedRelationDao.deleteByProjectId(id);
     }
 }

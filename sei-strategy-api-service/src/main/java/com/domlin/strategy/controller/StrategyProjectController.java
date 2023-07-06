@@ -21,6 +21,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -82,6 +83,7 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
 
         if (strategyProject != null) {
@@ -96,6 +98,7 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
             //保存项目负责人关联关系
             List<StrategyUserDto> officers = strategyProject.getOfficers();
+            userService.deleteOfficerByProjectId(strategyProject.getId());
             for (StrategyUserDto officer : officers) {
                 String userCode = officer.getUserCode();
                 StrategyUser byUserCode = userService.findByUserCode(userCode);
@@ -105,7 +108,7 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                     strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
                     strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
                     strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
-                    strategyUser.setUserStatue(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
+                    strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
                     strategyUser.setUserId(byEmployeeCode.getData().getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
@@ -116,6 +119,7 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
             //保存项目相关方
             List<StrategyUserDto> relates = strategyProject.getRelates();
+            userService.deleteRelatedByProjectId(strategyProject.getId());
             for (StrategyUserDto relate : relates) {
                 String userCode = relate.getUserCode();
                 if(StringUtil.isNullOrEmpty(userCode)){
@@ -128,7 +132,7 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                     strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
                     strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
                     strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
-                    strategyUser.setUserStatue(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
+                    strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
                     strategyUser.setUserId(byEmployeeCode.getData().getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
