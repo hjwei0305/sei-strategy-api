@@ -9,6 +9,7 @@ import com.domlin.strategy.entity.StrategyProjectPlans;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,5 +53,14 @@ public class StrategyProjectPlansService extends BaseEntityService<StrategyProje
             }
         }
 
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void uploadStrategyProjectPlans(List<StrategyProjectPlans> collect) {
+        if (collect != null && collect.size() > 0) {
+            save(collect);
+        } else {
+            throw new RuntimeException("导入数据不能为空");
+        }
     }
 }
