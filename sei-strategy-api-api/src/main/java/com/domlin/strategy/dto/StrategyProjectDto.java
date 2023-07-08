@@ -114,6 +114,11 @@ public class StrategyProjectDto extends BaseEntityDto {
      */
     private List<StrategyUserDto> relates;
 
+    /**
+     * 项目计划
+     */
+    private List<StrategyProjectPlansDto> plans;
+
     public String getName() {
         return name;
     }
@@ -264,5 +269,13 @@ public class StrategyProjectDto extends BaseEntityDto {
 
     public void setRelates(List<StrategyUserDto> relates) {
         this.relates = relates;
+    }
+
+    public List<StrategyProjectPlansDto> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(List<StrategyProjectPlansDto> plans) {
+        this.plans = plans;
     }
 }

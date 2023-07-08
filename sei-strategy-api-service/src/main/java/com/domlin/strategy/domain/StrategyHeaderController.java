@@ -8,14 +8,13 @@ import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.api.StrategyHeaderApi;
 import com.domlin.strategy.constant.StrategyConstant;
-import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
-import com.domlin.strategy.dto.StrategyHeaderDto;
-import com.domlin.strategy.dto.StrategyProjectDto;
-import com.domlin.strategy.dto.StrategyUserDto;
+import com.domlin.strategy.dto.*;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.entity.StrategyProject;
+import com.domlin.strategy.entity.StrategyProjectPlans;
 import com.domlin.strategy.entity.StrategyUser;
 import com.domlin.strategy.service.StrategyAnalyzeBillService;
+import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
 import io.swagger.annotations.Api;
@@ -62,6 +61,9 @@ public class StrategyHeaderController implements StrategyHeaderApi {
     @Autowired(required = false)
     private SerialService serialService;
 
+    @Autowired
+    private StrategyProjectPlansService plansService;
+
     /**
      * 分页查询经营策略
      *
@@ -89,6 +91,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
                 // 2、添加经项目负责人
                 // 3、添加项目相关方
+                // 4、添加行动计划
                 /**
                  * 这里会涉及多个Header，因为需求不合理，所以这里做了特殊处理
                  */
@@ -104,6 +107,8 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         getOfficers(projectDto);
                         // 3、添加项目相关方
                         getRelates(projectDto);
+                        // 4、添加行动计划
+                        getPlans(projectDto);
                         //返回临时类
                         StrategyHeaderDto temp = new StrategyHeaderDto();
                         temp.setId(strategyAnalyzeBill.getId()+strategyProject.getId());
@@ -135,6 +140,21 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         newPageResult.setRows(strategyHeaderDtoList);
         newPageResult.setTotal(pageResult.getTotal());
         return ResultData.success(newPageResult);
+    }
+
+    private void getPlans(StrategyProjectDto projectDto) {
+        // 通过项目id查出项目相关方
+        List<StrategyProjectPlans> plans = plansService.findByStrategyProjectId(projectDto.getId());
+        // 转换成dto
+        List<StrategyProjectPlansDto> strategyProjectPlansDtoList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(plans)) {
+            for (StrategyProjectPlans strategyProjectPlans : plans) {
+                StrategyProjectPlansDto strategyProjectPlansDto = modelMapper.map(strategyProjectPlans, StrategyProjectPlansDto.class);
+                strategyProjectPlansDtoList.add(strategyProjectPlansDto);
+            }
+        }
+        projectDto.setPlans(strategyProjectPlansDtoList);
+
     }
 
     public void getRelates(StrategyProjectDto projectDto) {

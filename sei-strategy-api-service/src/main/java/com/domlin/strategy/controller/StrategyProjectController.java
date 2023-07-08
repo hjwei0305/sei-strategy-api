@@ -13,6 +13,7 @@ import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.entity.StrategyUser;
+import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
 import io.netty.util.internal.StringUtil;
@@ -57,6 +58,9 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private StrategyProjectPlansService plansService;
 
     @Override
     public ResultData<PageResult<StrategyProjectDto>> findByPage(Search search) {
@@ -140,6 +144,10 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                 }
                 userService.addRelateRelation(strategyProject.getId(), byUserCode.getId());
             }
+
+            // 保存项目计划
+            plansService.save(strategyProject);
+
             //  保存项目
             service.save(entity);
             return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));

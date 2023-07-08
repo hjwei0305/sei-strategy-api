@@ -1,6 +1,7 @@
 package com.domlin.strategy.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -26,6 +27,16 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
     @ApiModelProperty(value = "月份")
     private String month;
     /**
+     * 责任人code
+     */
+    @ApiModelProperty(value = "责任人code")
+    private String userCode;
+    /**
+     * 责任人
+     */
+    @ApiModelProperty(value = "责任人")
+    private String userName;
+    /**
      * 里程碑
      */
     @ApiModelProperty(value = "里程碑")
@@ -34,6 +45,7 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
      * 预计完成日期
      */
     @ApiModelProperty(value = "预计完成日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date estimateDate;
     /**
      * 交付物
@@ -44,7 +56,7 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
      * 是否财务数据
      */
     @ApiModelProperty(value = "是否财务数据")
-    private Object isFinancial;
+    private String isFinancial;
     /**
      * 延迟天数
      */
@@ -97,11 +109,11 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
         this.deliverable = deliverable;
     }
 
-    public Object getIsFinancial() {
+    public String getIsFinancial() {
         return isFinancial;
     }
 
-    public void setIsFinancial(Object isFinancial) {
+    public void setIsFinancial(String isFinancial) {
         this.isFinancial = isFinancial;
     }
 
@@ -121,4 +133,19 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
         this.finishDate = finishDate;
     }
 
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

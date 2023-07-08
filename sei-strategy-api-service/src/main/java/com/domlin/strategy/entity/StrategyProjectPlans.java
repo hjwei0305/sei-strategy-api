@@ -1,6 +1,7 @@
 package com.domlin.strategy.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -33,6 +34,18 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
     @Column(name = "month")
     private String month;
     /**
+     * 责任人code
+     */
+    @ApiModelProperty(value = "责任人code")
+    @Column(name = "user_code")
+    private String userCode;
+    /**
+     * 责任人
+     */
+    @ApiModelProperty(value = "责任人")
+    @Column(name = "user_name")
+    private String userName;
+    /**
      * 里程碑
      */
     @Column(name = "milestone")
@@ -51,7 +64,7 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
      * 是否财务数据
      */
     @Column(name = "is_financial")
-    private Boolean isFinancial;
+    private String isFinancial;
     /**
      * 延迟天数
      */
@@ -104,11 +117,11 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
         this.deliverable = deliverable;
     }
 
-    public Boolean getIsFinancial() {
+    public String getIsFinancial() {
         return isFinancial;
     }
 
-    public void setIsFinancial(Boolean isFinancial) {
+    public void setIsFinancial(String isFinancial) {
         this.isFinancial = isFinancial;
     }
 
@@ -126,6 +139,22 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }
