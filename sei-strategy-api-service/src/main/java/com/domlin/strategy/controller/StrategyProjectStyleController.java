@@ -4,9 +4,7 @@ import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.core.log.annotation.Log;
 import com.changhong.sei.core.service.BaseEntityService;
-import com.changhong.sei.util.EnumUtils;
 import com.domlin.strategy.api.StrategyProjectStyleApi;
 import com.domlin.strategy.dto.StrategyProjectStyleDto;
 import com.domlin.strategy.entity.StrategyProjectStyle;
@@ -20,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -51,18 +48,7 @@ public class StrategyProjectStyleController extends BaseEntityController<Strateg
 
     @Override
     public ResultData<PageResult<StrategyProjectStyleDto>> findByPage(Search search) {
-        PageResult<StrategyProjectStyleDto> newPageResult = new PageResult<>();
-        List<StrategyProjectStyleDto> newRows = new ArrayList<>();
-        PageResult<StrategyProjectStyle> byPage = service.findByPage(search);
-        newPageResult.setRows(newRows);
-        if (CollectionUtils.isNotEmpty(byPage.getRows())) {
-            byPage.getRows().forEach(x -> newRows.add(modelMapper.map(x, StrategyProjectStyleDto.class)));
-            newPageResult.setRows(newRows);
-            newPageResult.setTotal(byPage.getTotal());
-            newPageResult.setPage(byPage.getPage());
-            newPageResult.setRecords(byPage.getRecords());
-        }
-        return ResultData.success(newPageResult);
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     @Override

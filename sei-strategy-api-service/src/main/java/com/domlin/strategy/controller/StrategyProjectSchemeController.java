@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * 周期配置(StrategyProjectScheme)控制类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:26
  */
 @RestController
@@ -45,16 +45,7 @@ public class StrategyProjectSchemeController extends BaseEntityController<Strate
 
     @Override
     public ResultData<PageResult<StrategyProjectSchemeDto>> findByPage(Search search) {
-        PageResult<StrategyProjectSchemeDto> pageResultDto = new PageResult<>();
-        PageResult<StrategyProjectScheme> byPage = service.findByPage(search);
-        if (CollectionUtils.isNotEmpty(byPage.getRows())){
-            List<StrategyProjectSchemeDto> collect = byPage.getRows().stream().map(x -> modelMapper.map(x, StrategyProjectSchemeDto.class)).collect(Collectors.toList());
-            pageResultDto.setRows(collect);
-            pageResultDto.setTotal(byPage.getTotal());
-            pageResultDto.setPage(byPage.getPage());
-            pageResultDto.setRecords(byPage.getRecords());
-        }
-        return ResultData.success(pageResultDto);
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     @Override

@@ -52,17 +52,7 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
 
     @Override
     public ResultData<PageResult<StrategyUserDto>> findByPage(Search search) {
-        PageResult<StrategyUserDto> pageResult = new PageResult<>();
-        PageResult<StrategyUser> byPage = service.findByPage(search);
-        List<StrategyUserDto> newRow = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(byPage.getRows())){
-            byPage.getRows().forEach(x -> newRow.add(modelMapper.map(x,StrategyUserDto.class)));
-            pageResult.setRows(newRow);
-            pageResult.setTotal(byPage.getTotal());
-            pageResult.setPage(byPage.getPage());
-            pageResult.setRecords(byPage.getRecords());
-        }
-        return ResultData.success(modelMapper.map(pageResult, PageResult.class));
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     @Override

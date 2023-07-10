@@ -7,12 +7,9 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.api.StrategyBillModuleApi;
 import com.domlin.strategy.dto.StrategyBillModuleDto;
-import com.domlin.strategy.dto.StrategyProjectLevelDto;
 import com.domlin.strategy.entity.StrategyBillModule;
-import com.domlin.strategy.entity.StrategyProjectLevel;
 import com.domlin.strategy.service.StrategyBillModuleService;
 import io.swagger.annotations.Api;
-import jdk.nashorn.internal.objects.NativeArray;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -21,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,17 +46,7 @@ public class StrategyBillModuleController extends BaseEntityController<StrategyB
 
     @Override
     public ResultData<PageResult<StrategyBillModuleDto>> findByPage(Search search) {
-        PageResult<StrategyBillModuleDto> newPageResult = new PageResult<>();
-        List<StrategyBillModuleDto> newRows = new ArrayList<>();
-        PageResult<StrategyBillModule> pageResult = service.findByPage(search);
-        if (CollectionUtils.isNotEmpty(pageResult.getRows())) {
-            pageResult.getRows().forEach(x -> newRows.add(modelMapper.map(x, StrategyBillModuleDto.class)));
-            newPageResult.setRows(newRows);
-            newPageResult.setTotal(pageResult.getTotal());
-            newPageResult.setPage(pageResult.getPage());
-            newPageResult.setRecords(pageResult.getRecords());
-        }
-        return ResultData.success(newPageResult);
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     @Override

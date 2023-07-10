@@ -1,8 +1,8 @@
 package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyBillModuleDto;
 import io.swagger.annotations.ApiOperation;
@@ -22,13 +22,9 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "sei-strategy-api", path = StrategyBillModuleApi.PATH)
-public interface StrategyBillModuleApi extends BaseEntityApi<StrategyBillModuleDto> {
+public interface StrategyBillModuleApi extends BaseEntityApi<StrategyBillModuleDto>, FindByPageApi<StrategyBillModuleDto> {
     String PATH = "strategyBillModule";
 
-    //写一个方法查询StrategyBillModule，根据模块名称或者code，没有条件则查询全部
-    @PostMapping(path = "findByPage",consumes = "application/json")
-    @ApiOperation("分页查询StrategyBillModule")
-    ResultData<PageResult<StrategyBillModuleDto>> findByPage(@RequestBody Search search);
 
     //写一个方法，update StrategyBillModule
     @PostMapping(path = "update",consumes = "application/json")

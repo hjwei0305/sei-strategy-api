@@ -30,14 +30,14 @@ public interface StrategyProjectApi extends BaseEntityApi<StrategyProjectDto> {
     @ApiOperation("分页查询StrategyProject")
     ResultData<PageResult<StrategyProjectDto>> findByPage(@RequestBody Search search);
 
-    //写一个方法，update StrategyProject
-    @PostMapping(path = "update",consumes = "application/json")
-    @ApiOperation("更新StrategyProject")
-    ResultData<StrategyProjectDto> update(@RequestBody StrategyProjectDto strategyProject);
-
     //写一个方法，save StrategyProject
     @PostMapping(path = "save",consumes = "application/json")
     @ApiOperation("保存StrategyProject")
     ResultData<StrategyProjectDto> save(@RequestBody StrategyProjectDto strategyProject);
+
+    //写一个导出方法，实现submitProject 项目提交
+    @PostMapping(path = "submitProject",consumes = "application/json")
+    @ApiOperation(value = "项目提交", notes = "项目提交")
+    ResultData<StrategyProjectDto> submitProject(@RequestBody StrategyProjectDto strategyProject) throws Exception;
 
 }

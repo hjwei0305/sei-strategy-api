@@ -76,21 +76,9 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
         return ResultData.success(newPageResult);
     }
 
-    @Override
     public ResultData<StrategyProjectDto> update(StrategyProjectDto strategyProject) {
         if (strategyProject != null) {
-            StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
-            service.update(entity);
-            return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
-        }
-        return ResultData.fail("参数不能为空");
-    }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
-
-        if (strategyProject != null) {
             StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
 
             //保存模块对接人关联关系
@@ -153,5 +141,25 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
             return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
         }
         return ResultData.fail("参数不能为空");
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
+
+        return update(strategyProject);
+
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<StrategyProjectDto> submitProject(StrategyProjectDto strategyProject) throws Exception {
+        ResultData<StrategyProjectDto> updatedProject = ResultData.fail("提交失败");
+        // 保存项目
+        if (strategyProject != null) {
+            updatedProject = update(strategyProject);
+        }
+        // 提交流程
+        return updatedProject;
     }
 }

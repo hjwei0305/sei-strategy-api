@@ -1,8 +1,8 @@
 package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyProjectVerifyDto;
 import io.swagger.annotations.ApiOperation;
@@ -22,13 +22,8 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "sei-strategy-api", path = StrategyProjectVerifyApi.PATH)
-public interface StrategyProjectVerifyApi extends BaseEntityApi<StrategyProjectVerifyDto> {
+public interface StrategyProjectVerifyApi extends BaseEntityApi<StrategyProjectVerifyDto>, FindByPageApi<StrategyProjectVerifyDto> {
     String PATH = "strategyProjectVerify";
-
-    //写一个方法根据确认列别或者确认结果查询strategyProjectVerify，没有条件则查询全部
-    @PostMapping(path = "findByPage")
-    @ApiOperation("分页查询strategyProjectVerify")
-    ResultData<PageResult<StrategyProjectVerifyDto>> findByPage(@RequestBody Search search);
 
     //写一个方法，update strategyProjectVerify
     @PostMapping(path = "update")

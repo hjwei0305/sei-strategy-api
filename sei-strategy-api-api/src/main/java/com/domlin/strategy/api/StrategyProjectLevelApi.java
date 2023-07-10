@@ -1,8 +1,8 @@
 package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyProjectLevelDto;
 import io.swagger.annotations.ApiOperation;
@@ -22,13 +22,8 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "sei-strategy-api", path = StrategyProjectLevelApi.PATH)
-public interface StrategyProjectLevelApi extends BaseEntityApi<StrategyProjectLevelDto> {
+public interface StrategyProjectLevelApi extends BaseEntityApi<StrategyProjectLevelDto>, FindByPageApi<StrategyProjectLevelDto> {
     String PATH = "strategyProjectLevel";
-
-    //写一个方法分页查询项目分级，按照级别或者创建者或者创建日期为查询条件
-    @PostMapping(path = "findByPage")
-    @ApiOperation("分页查询项目分级")
-    ResultData<PageResult<StrategyProjectLevelDto>> findByPage(@RequestBody Search search);
 
     //写一个方法，update strategyProjectLevel
     @PostMapping(path = "update")

@@ -1,8 +1,8 @@
 package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyUserDto;
 import io.swagger.annotations.ApiOperation;
@@ -22,13 +22,8 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "sei-strategy-api", path = StrategyUserApi.PATH)
-public interface StrategyUserApi extends BaseEntityApi<StrategyUserDto> {
+public interface StrategyUserApi extends BaseEntityApi<StrategyUserDto>,FindByPageApi<StrategyUserDto> {
     String PATH = "strategyUser";
-
-    //写一个分页查询方法
-    @PostMapping(path = "findByPage")
-    @ApiOperation("分页查询strategyUser")
-    ResultData<PageResult<StrategyUserDto>> findByPage(@RequestBody Search search);
 
     //写一个方法，更新strategyUser
     @PostMapping(path = "update")

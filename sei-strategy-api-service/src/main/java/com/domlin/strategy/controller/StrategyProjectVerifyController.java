@@ -6,9 +6,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.domlin.strategy.api.StrategyProjectVerifyApi;
-import com.domlin.strategy.dto.StrategyProjectStyleDto;
 import com.domlin.strategy.dto.StrategyProjectVerifyDto;
-import com.domlin.strategy.entity.StrategyProjectStyle;
 import com.domlin.strategy.entity.StrategyProjectVerify;
 import com.domlin.strategy.service.StrategyProjectVerifyService;
 import io.swagger.annotations.Api;
@@ -20,7 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,17 +47,7 @@ public class StrategyProjectVerifyController extends BaseEntityController<Strate
 
     @Override
     public ResultData<PageResult<StrategyProjectVerifyDto>> findByPage(Search search) {
-        PageResult<StrategyProjectVerify> pageResult = service.findByPage(search);
-        List<StrategyProjectVerify> newRows = new ArrayList<>();
-        PageResult<StrategyProjectVerify> byPage = service.findByPage(search);
-        if (CollectionUtils.isNotEmpty(byPage.getRows())) {
-            byPage.getRows().forEach(x -> newRows.add(modelMapper.map(x, StrategyProjectVerify.class)));
-            pageResult.setRows(newRows);
-            pageResult.setTotal(byPage.getTotal());
-            pageResult.setPage(byPage.getPage());
-            pageResult.setRecords(byPage.getRecords());
-        }
-        return ResultData.success(modelMapper.map(pageResult, PageResult.class));
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     @Override
