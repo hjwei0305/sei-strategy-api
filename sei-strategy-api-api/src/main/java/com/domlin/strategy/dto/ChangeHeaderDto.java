@@ -1,6 +1,7 @@
 package com.domlin.strategy.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
 
 /**
  * 实现功能：

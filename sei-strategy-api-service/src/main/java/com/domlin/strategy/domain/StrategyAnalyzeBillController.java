@@ -1,4 +1,4 @@
-package com.domlin.strategy.controller;
+package com.domlin.strategy.domain;
 
 
 import com.changhong.sei.core.controller.BaseEntityController;
@@ -8,7 +8,11 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.api.StrategyAnalyzeBillApi;
-import com.domlin.strategy.dto.StrategyAnalyzeBillDto;
+import com.domlin.strategy.dto.StrategyUserDto;
+import com.domlin.strategy.entity.StrategyProject;
+import com.domlin.strategy.entity.StrategyUser;
+import com.domlin.strategy.service.StrategyUserService;
+import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.service.StrategyAnalyzeBillService;
 import com.domlin.strategy.service.StrategyProjectService;
@@ -54,6 +58,8 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
     @Autowired(required = false)
     private SerialService serialService;
 
+    @Autowired(required = false)
+    private StrategyUserService strategyUserService;
 
 
     /**
@@ -71,6 +77,12 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
         if (CollectionUtils.isNotEmpty(rows)) {
             for (int i = 0; i < rows.size(); i++) {
                 StrategyAnalyzeBillDto dto = modelMapper.map(rows.get(i), StrategyAnalyzeBillDto.class);
+                // 项目负责人
+                getOfficer(dto);
+                // 模块对接人
+                getContact(dto);
+                // 管理者成员
+                getManagements(dto);
                 newRows.add(dto);
             }
             newPageResult.setRows(newRows);
@@ -78,6 +90,67 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
             newPageResult.setPage(pageResult.getPage());
         }
         return ResultData.success(newPageResult);
+    }
+
+    private void getManagements(StrategyAnalyzeBillDto dto) {
+        if (dto != null) {
+            List<StrategyUser> strategyUsers = strategyUserService.findManagementsByModuleCode(dto.getModuleCode());
+            if (CollectionUtils.isNotEmpty(strategyUsers)) {
+                String managementCodes = "";
+                String managementNames = "";
+
+                for (int i = 0; i < strategyUsers.size(); i++) {
+                    managementCodes += strategyUsers.get(i).getUserCode() + ",";
+                    managementNames += strategyUsers.get(i).getUserName() + ",";
+                }
+                dto.setManagemetCodes(managementCodes);
+                dto.setManagemetNames(managementNames);
+            }
+        }
+    }
+
+    private void getContact(StrategyAnalyzeBillDto dto) {
+        if (dto != null) {
+            // 通过moduleCode查出对应的模块对接人
+            List<StrategyUser> contacts = strategyUserService.findContactByModuleCode(dto.getModuleCode());
+            List<StrategyUserDto> strategyUserDtos = new ArrayList<>();
+            if (CollectionUtils.isNotEmpty(contacts)) {
+                for (StrategyUser strategyUser : contacts) {
+                    StrategyUserDto strategyUserDto = modelMapper.map(strategyUser, StrategyUserDto.class);
+                    strategyUserDtos.add(strategyUserDto);
+                }
+            }
+            dto.setContacts(strategyUserDtos);
+        }
+    }
+
+    private void getOfficer(StrategyAnalyzeBillDto dto) {
+
+        if (dto != null) {
+            // 通过经营策略id获取StrategyProjectDto
+            List<StrategyProject> StrategyProjectList = strategyProjectService.findByStrategyAnalyzeBillId(dto.getId());
+            if (CollectionUtils.isNotEmpty(StrategyProjectList)) {
+                String officerCodes = "";
+                String officerNames = "";
+                String officePosition = "";
+                for (StrategyProject strategyProject : StrategyProjectList) {
+                    if (strategyProject != null) {
+                        List<StrategyUser> officers = strategyUserService.findOfficerByProjectId(strategyProject.getId());
+                        if (CollectionUtils.isNotEmpty(officers)) {
+                            for (StrategyUser strategyUser : officers) {
+                                StrategyUserDto strategyUserDto = modelMapper.map(strategyUser, StrategyUserDto.class);
+                                officerCodes += strategyUserDto.getUserCode() + ",";
+                                officerNames += strategyUserDto.getUserName() + ",";
+                                officePosition += strategyUserDto.getPosition() + ",";
+                            }
+                        }
+                    }
+                }
+                dto.setOfficerCodes(officerCodes);
+                dto.setOfficerNames(officerNames);
+                dto.setOfficerPositions(officePosition);
+            }
+        }
     }
 
     @Override

@@ -1,6 +1,8 @@
-package com.domlin.strategy.dto;
+package com.domlin.strategy.vo;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.domlin.strategy.dto.StrategyProjectDto;
+import com.domlin.strategy.dto.StrategyUserDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * 经营策略(StrategyAnalyzeBill)DTO类
  *
- * @author sei
+ * @author 作者[wake]
  * @since 2023-05-09 15:09:59
  */
 @ApiModel(description = "经营策略DTO")
@@ -79,13 +81,42 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty(value = "变更次数")
     private Integer changeCount;
 
-    //保存用，查询不用
+    @ApiModelProperty("description")
+    private String description;
+
+
+    /**
+     * 保存时作为领域里面的子对象，查询不使用
+     */
     @ApiModelProperty("strategyProjectDto的集合")
     private List<StrategyProjectDto> projectDtoList;
 
-    //description
-    @ApiModelProperty("description")
-    private String description;
+
+    /**
+     * 查询使用，保存使用，避免修改字段要改动太多地方，所以该类作为基础业务类，亦做为领域查询对象
+     *
+     * @return
+     */
+    @ApiModelProperty("officerCodes")
+    private String officerCodes;
+
+    @ApiModelProperty("officerNames")
+    private String officerNames;
+
+    @ApiModelProperty("officerPositions")
+    private String officerPositions;
+
+    @ApiModelProperty("managemetCodes")
+    private String managemetCodes;
+
+    @ApiModelProperty("managemetNames")
+    private String managemetNames;
+
+
+    @ApiModelProperty("contacts")
+    private List<StrategyUserDto> contacts;
+
+
 
     public String getYear() {
         return year;
@@ -214,5 +245,53 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOfficerCodes() {
+        return officerCodes;
+    }
+
+    public void setOfficerCodes(String officerCodes) {
+        this.officerCodes = officerCodes;
+    }
+
+    public String getOfficerNames() {
+        return officerNames;
+    }
+
+    public void setOfficerNames(String officerNames) {
+        this.officerNames = officerNames;
+    }
+
+    public String getOfficerPositions() {
+        return officerPositions;
+    }
+
+    public void setOfficerPositions(String officerPositions) {
+        this.officerPositions = officerPositions;
+    }
+
+    public List<StrategyUserDto> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<StrategyUserDto> contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getManagemetCodes() {
+        return managemetCodes;
+    }
+
+    public void setManagemetCodes(String managemetCodes) {
+        this.managemetCodes = managemetCodes;
+    }
+
+    public String getManagemetNames() {
+        return managemetNames;
+    }
+
+    public void setManagemetNames(String managemetNames) {
+        this.managemetNames = managemetNames;
     }
 }

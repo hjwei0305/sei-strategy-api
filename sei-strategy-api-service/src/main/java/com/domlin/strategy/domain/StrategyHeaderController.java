@@ -17,6 +17,7 @@ import com.domlin.strategy.service.StrategyAnalyzeBillService;
 import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
+import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -178,7 +179,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
      */
     public List<StrategyUserDto> getContacts(StrategyAnalyzeBillDto strategyAnalyzeBillDto){
         // 通过moduleCode查出对应的模块对接人
-        List<StrategyUser> contacts = strategyUserService.findByModuleCode(strategyAnalyzeBillDto.getModuleCode());
+        List<StrategyUser> contacts = strategyUserService.findContactByModuleCode(strategyAnalyzeBillDto.getModuleCode());
         // 转换成dto
         List<StrategyUserDto> strategyUserDtoList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(contacts)) {

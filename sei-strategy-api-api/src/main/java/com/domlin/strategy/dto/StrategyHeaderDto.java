@@ -1,6 +1,7 @@
 package com.domlin.strategy.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;

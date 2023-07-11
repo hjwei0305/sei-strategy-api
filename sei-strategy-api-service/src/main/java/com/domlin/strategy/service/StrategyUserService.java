@@ -66,8 +66,8 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
      * @param moduleCode
      * @return
      */
-    public List<StrategyUser> findByModuleCode(String moduleCode) {
-        return dao.findByModuleCode(moduleCode);
+    public List<StrategyUser> findContactByModuleCode(String moduleCode) {
+        return dao.findContactByModuleCode(moduleCode);
     }
 
     /**
@@ -160,5 +160,9 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
      */
     public void deleteRelatedByProjectId(String id) {
         relatedRelationDao.deleteByProjectId(id);
+    }
+
+    public List<StrategyUser> findManagementsByModuleCode(String moduleCode) {
+        return dao.findManagementsByModuleCode(moduleCode);
     }
 }

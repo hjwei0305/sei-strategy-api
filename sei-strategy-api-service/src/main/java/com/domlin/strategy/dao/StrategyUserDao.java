@@ -19,7 +19,7 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
 
     @Modifying
     @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'contact'")
-    List<StrategyUser> findByModuleCode(String moduleCode);
+    List<StrategyUser> findContactByModuleCode(String moduleCode);
 
     @Query("select su from StrategyUser su where su.userCode = :userCode")
     StrategyUser findByUserCode(String userCode);
@@ -30,4 +30,8 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
 
     @Query("select su from StrategyUser su where su.id in (select sr.userId from StrategyRelatedRelation sr where sr.projectId = :projectId)")
     List<StrategyUser> findRelatedByProjectId(String projectId);
+
+    // findManagementsByModuleCode,通过moduleCode，查询StrategyUser表，获取style为management的信息
+    @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'manage'")
+    List<StrategyUser> findManagementsByModuleCode(String moduleCode);
 }
