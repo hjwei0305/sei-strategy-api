@@ -78,23 +78,20 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
 
     public ResultData<StrategyProjectDto> update(StrategyProjectDto strategyProject) {
         if (strategyProject != null) {
-
             StrategyProject entity = modelMapper.map(strategyProject, StrategyProject.class);
-
             //保存模块对接人关联关系
             List<StrategyUserDto> contacts = strategyProject.getContacts();
             if (contacts == null || contacts.size() == 0){
                 return ResultData.fail("模块对接人不能为空");
             }
             userService.addContactRelation(strategyProject.getId(), contacts.get(0).getId());
-
             //保存项目负责人关联关系
             List<StrategyUserDto> officers = strategyProject.getOfficers();
             userService.deleteOfficerByProjectId(strategyProject.getId());
             for (StrategyUserDto officer : officers) {
                 String userCode = officer.getUserCode();
-                StrategyUser byUserCode = userService.findByUserCode(userCode);
-                if (byUserCode == null){
+                List<StrategyUser> users = userService.findByUserCode(userCode);
+                if (CollectionUtils.isEmpty(users)){
                     ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
                     StrategyUser strategyUser = new StrategyUser();
                     strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
@@ -104,11 +101,12 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
                     strategyUser.setUserId(byEmployeeCode.getData().getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
-                    byUserCode = save.getData();
+                    StrategyUser saveData = save.getData();
+                    userService.addOfficerelation(strategyProject.getId(), saveData.getId());
+                }else {
+                    userService.addOfficerelation(strategyProject.getId(), users.get(0).getId());
                 }
-                userService.addOfficerelation(strategyProject.getId(), byUserCode.getId());
             }
-
             //保存项目相关方
             List<StrategyUserDto> relates = strategyProject.getRelates();
             userService.deleteRelatedByProjectId(strategyProject.getId());
@@ -117,8 +115,8 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                 if(StringUtil.isNullOrEmpty(userCode)){
                     continue;
                 }
-                StrategyUser byUserCode = userService.findByUserCode(userCode);
-                if (byUserCode == null){
+                List<StrategyUser> byUserCodes = userService.findByUserCode(userCode);
+                if (CollectionUtils.isEmpty(byUserCodes)){
                     ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
                     StrategyUser strategyUser = new StrategyUser();
                     strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
@@ -128,14 +126,14 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
                     strategyUser.setUserId(byEmployeeCode.getData().getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
-                    byUserCode = save.getData();
+                    StrategyUser saveData = save.getData();
+                    userService.addRelateRelation(strategyProject.getId(), saveData.getId());
+                }else {
+                    userService.addRelateRelation(strategyProject.getId(), byUserCodes.get(0).getId());
                 }
-                userService.addRelateRelation(strategyProject.getId(), byUserCode.getId());
             }
-
             // 保存项目计划
             plansService.save(strategyProject);
-
             //  保存项目
             service.save(entity);
             return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
@@ -146,7 +144,6 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResultData<StrategyProjectDto> save(StrategyProjectDto strategyProject) {
-
         return update(strategyProject);
 
     }

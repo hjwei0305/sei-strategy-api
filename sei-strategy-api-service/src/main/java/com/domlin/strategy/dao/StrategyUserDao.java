@@ -22,7 +22,7 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
     List<StrategyUser> findContactByModuleCode(String moduleCode);
 
     @Query("select su from StrategyUser su where su.userCode = :userCode")
-    StrategyUser findByUserCode(String userCode);
+    List<StrategyUser> findByUserCode(String userCode);
 
     //findOfficerByProjectId,通过projectID，查询StrategyProjectOfficerRelation表，获取officer的UserId，再通过UserId查询StrategyUser表，获取officer的信息
     @Query("select su from StrategyUser su where su.id in (select sp.userId from StrategyProjectOfficerRelation sp where sp.projectId = :projectId)")

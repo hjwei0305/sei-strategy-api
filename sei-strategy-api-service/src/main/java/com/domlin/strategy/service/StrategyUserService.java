@@ -75,7 +75,7 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
      * @param userCode
      * @return
      */
-    public StrategyUser findByUserCode(String userCode) {
+    public List<StrategyUser> findByUserCode(String userCode) {
         return dao.findByUserCode(userCode);
     }
 
