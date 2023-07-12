@@ -4,7 +4,7 @@ import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.domlin.strategy.dto.StrategyHeaderDto;
+import com.domlin.strategy.vo.StrategyHeaderDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

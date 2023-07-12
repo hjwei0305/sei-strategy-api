@@ -1,13 +1,13 @@
 package com.domlin.strategy.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
-import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.dao.StrategyProjectDao;
 import com.domlin.strategy.dao.StrategyProjectRelationDao;
 import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.entity.StrategyProjectRelation;
+import com.domlin.strategy.flow.BaseFlowEntityService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2023-05-09 15:12:49
  */
 @Service
-public class StrategyProjectService extends BaseEntityService<StrategyProject> {
+public class StrategyProjectService extends BaseFlowEntityService<StrategyProject> {
     @Autowired
     private StrategyProjectDao dao;
 

@@ -1,6 +1,6 @@
 package com.domlin.strategy.entity;
 
-import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.domlin.strategy.flow.BaseFlowEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,7 +20,7 @@ import java.util.Date;
 @Table(name = "strategy_project")
 @DynamicInsert
 @DynamicUpdate
-public class StrategyProject extends BaseAuditableEntity implements Serializable {
+public class StrategyProject extends BaseFlowEntity implements Serializable {
     private static final long serialVersionUID = 137615013293557012L;
     /**
      * 项目名称

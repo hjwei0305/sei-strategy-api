@@ -2,17 +2,17 @@ package com.domlin.strategy.controller;
 
 import com.changhong.sei.basic.api.SysUserApi;
 import com.changhong.sei.basic.dto.SysUserDto;
-import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.domlin.strategy.api.StrategyProjectApi;
 import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyProject;
 import com.domlin.strategy.entity.StrategyUser;
+import com.domlin.strategy.flow.BaseFlowController;
+import com.domlin.strategy.flow.BaseFlowEntityService;
 import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
@@ -38,7 +38,7 @@ import java.util.List;
 @RestController
 @Api(value = "com.domlin.strategy.api.StrategyProjectApi", tags = "项目服务")
 @RequestMapping(path = StrategyProjectApi.PATH, produces = MediaType.APPLICATION_JSON_VALUE)
-public class StrategyProjectController extends BaseEntityController<StrategyProject, StrategyProjectDto> implements StrategyProjectApi {
+public class StrategyProjectController extends BaseFlowController<StrategyProject, StrategyProjectDto> implements StrategyProjectApi {
     /**
      * 项目服务对象
      */
@@ -52,8 +52,23 @@ public class StrategyProjectController extends BaseEntityController<StrategyProj
     private SysUserApi sysUserApi;
 
     @Override
-    public BaseEntityService<StrategyProject> getService() {
+    public BaseFlowEntityService<StrategyProject> getService() {
         return service;
+    }
+
+    @Override
+    protected String getWorkCaption(StrategyProject strategyProject) {
+        return "ESS出厂单据流程" +strategyProject.getCode();
+    }
+
+    @Override
+    protected String getFlowName(StrategyProject strategyProject) {
+        return "ES1111出厂单据流程" +strategyProject.getCode();
+    }
+
+    @Override
+    protected String getBusinessCode(StrategyProject strategyProject) {
+        return null;
     }
 
     @Autowired

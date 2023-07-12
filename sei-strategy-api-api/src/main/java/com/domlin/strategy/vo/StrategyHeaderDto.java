@@ -1,7 +1,8 @@
-package com.domlin.strategy.dto;
+package com.domlin.strategy.vo;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
-import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
+import com.domlin.strategy.dto.StrategyProjectDto;
+import com.domlin.strategy.dto.StrategyUserDto;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
