@@ -18,6 +18,7 @@ import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
 import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
+import com.domlin.strategy.vo.StrategyHeaderDto;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
