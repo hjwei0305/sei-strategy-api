@@ -68,7 +68,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
 
     @Override
     protected String getBusinessCode(StrategyProject strategyProject) {
-        return null;
+        return strategyProject.getId();
     }
 
     @Autowired
