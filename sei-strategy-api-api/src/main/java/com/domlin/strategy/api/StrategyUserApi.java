@@ -3,10 +3,13 @@ package com.domlin.strategy.api;
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.flow.Executor;
+import com.changhong.sei.core.dto.flow.FlowInvokeParams;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyUserDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,7 +19,7 @@ import java.util.List;
 /**
  * 人员信息(StrategyUser)API
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:34
  * TODO @FeignClient(name = "请修改为项目服务名")
  */
@@ -39,6 +42,16 @@ public interface StrategyUserApi extends BaseEntityApi<StrategyUserDto>,FindByPa
     @PostMapping(path = "uploadStrategyUser")
     @ApiOperation(value = "导入strategyUser", notes = "导入strategyUser")
     ResultData<String> uploadStrategyUser(@RequestBody List<StrategyUserDto> list) throws Exception;
+
+
+    /**
+     * 单位负责人
+     * @param invokeParams 查询条件
+     * @return 业务实体
+     */
+    @PostMapping(path = "findOfficerByProjectId",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "获取审批单据单位负责人", notes = "获取审批单据部门负责人")
+    ResultData<List<Executor>> findOfficerByProjectId(@RequestBody FlowInvokeParams invokeParams);
 
 
 }

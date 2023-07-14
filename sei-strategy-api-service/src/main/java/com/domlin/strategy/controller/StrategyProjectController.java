@@ -7,6 +7,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.domlin.strategy.api.StrategyProjectApi;
+import com.domlin.strategy.constant.StrategyConstant;
 import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyProject;
@@ -58,12 +59,12 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
 
     @Override
     protected String getWorkCaption(StrategyProject strategyProject) {
-        return "ESS出厂单据流程" +strategyProject.getCode();
+        return "经营策略项目" +strategyProject.getCode();
     }
 
     @Override
     protected String getFlowName(StrategyProject strategyProject) {
-        return "ES1111出厂单据流程" +strategyProject.getCode();
+        return "经营策略项目表单流程" +strategyProject.getCode();
     }
 
     @Override
@@ -150,6 +151,9 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
             // 保存项目计划
             plansService.save(strategyProject);
             //  保存项目
+            entity.setOrganizationId(StrategyConstant.organizationId);
+            entity.setOrganizationCode(StrategyConstant.organizationCode);
+            entity.setOrganizationName(StrategyConstant.organizationName);
             service.save(entity);
             return ResultData.success(modelMapper.map(entity, StrategyProjectDto.class));
         }
@@ -165,7 +169,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<StrategyProjectDto> submitProject(StrategyProjectDto strategyProject) throws Exception {
+    public ResultData<StrategyProjectDto> submitProject(StrategyProjectDto strategyProject) {
         ResultData<StrategyProjectDto> updatedProject = ResultData.fail("提交失败");
         // 保存项目
         if (strategyProject != null) {

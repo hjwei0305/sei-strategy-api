@@ -4,6 +4,8 @@ import com.changhong.sei.basic.api.SysUserApi;
 import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.flow.Executor;
+import com.changhong.sei.core.dto.flow.FlowInvokeParams;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
@@ -27,7 +29,7 @@ import java.util.List;
 /**
  * 人员信息(StrategyUser)控制类
  *
- * @author sei
+ * @author wake
  * @since 2023-05-09 15:13:33
  */
 @RestController
@@ -82,6 +84,24 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
         }
         String s = service.uploadStrategyUser(newRow);
         return ResultData.success(s);
+    }
+
+    @Override
+    public ResultData<List<Executor>> findOfficerByProjectId(FlowInvokeParams invokeParams) {
+        String id = invokeParams.getId();
+        List<StrategyUser> strategyUsers = service.findOfficerByProjectId(id);
+        if (CollectionUtils.isEmpty(strategyUsers)){
+            return ResultData.fail("未配置单位负责人，请先配置单位负责人！");
+        }
+        List<Executor> list = new ArrayList<>();
+        for (StrategyUser strategyUser : strategyUsers) {
+            Executor executor= new Executor();
+            executor.setCode(strategyUser.getUserCode());
+            executor.setName(strategyUser.getUserName());
+            executor.setId(strategyUser.getId());
+            list.add(executor);
+        }
+        return ResultData.success(list);
     }
 
     /**

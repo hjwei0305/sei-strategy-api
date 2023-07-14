@@ -41,4 +41,20 @@ public class StrategyConstant {
     public static final String ABANDON = "3";
 
 
+    /**
+     *  流程提交使用字段
+     */
+    public static final String organizationCode = "00000293";
+
+    /**
+     *  流程提交使用字段
+     */
+    public static final String organizationId="00459FE3-1C44-11ED-B27F-005056C00001";
+
+    /**
+     *  流程提交使用字段
+     */
+    public static final String organizationName="新宝股份-营运管理中心-信息化管理中心";
+
+
 }
