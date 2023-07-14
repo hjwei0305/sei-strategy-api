@@ -106,7 +106,7 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
             Executor executor= new Executor();
             executor.setCode(strategyUser.getUserCode());
             executor.setName(strategyUser.getUserName());
-            executor.setId(strategyUser.getId());
+            executor.setId(strategyUser.getUserId());
             list.add(executor);
         }
         return ResultData.success(list);
