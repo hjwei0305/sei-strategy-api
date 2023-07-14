@@ -2,6 +2,7 @@ package com.domlin.strategy.dao;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,5 +13,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StrategyAnalyzeBillDao extends BaseEntityDao<StrategyAnalyzeBill> {
+
+
+    @Query("select b from StrategyAnalyzeBill b ,StrategyProjectRelation r where b.id = r.strategyId and r.projectId = :projectId")
+    StrategyAnalyzeBill findByProjectId(String projectId);
 
 }

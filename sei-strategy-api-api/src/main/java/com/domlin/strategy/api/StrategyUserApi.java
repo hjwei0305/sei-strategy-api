@@ -51,7 +51,7 @@ public interface StrategyUserApi extends BaseEntityApi<StrategyUserDto>,FindByPa
      */
     @PostMapping(path = "findOfficerByProjectId",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "获取审批单据单位负责人", notes = "获取审批单据部门负责人")
-    ResultData<List<Executor>> findOfficerByProjectId(@RequestBody FlowInvokeParams invokeParams);
+    ResultData<List<Executor>> findUnitOfficer(@RequestBody FlowInvokeParams invokeParams);
 
 
 }

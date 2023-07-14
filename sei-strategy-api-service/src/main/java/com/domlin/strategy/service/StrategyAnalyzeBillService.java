@@ -57,4 +57,8 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
         }
         return ResultData.success("导入成功");
     }
+
+    public StrategyAnalyzeBill findByProjectId(String pojectId){
+        return dao.findByProjectId(pojectId);
+    }
 }

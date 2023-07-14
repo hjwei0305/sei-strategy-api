@@ -71,6 +71,15 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
     }
 
     /**
+     * 根据项目id  查询  模块单位负责人
+     * @param moduleCode
+     * @return
+     */
+    public List<StrategyUser> findUnitOfficer(String moduleCode) {
+        return dao.findUnitOfficer(moduleCode);
+    }
+
+    /**
      * 根据用户编码查询用户信息
      * @param userCode
      * @return
@@ -165,4 +174,5 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
     public List<StrategyUser> findManagementsByModuleCode(String moduleCode) {
         return dao.findManagementsByModuleCode(moduleCode);
     }
+
 }

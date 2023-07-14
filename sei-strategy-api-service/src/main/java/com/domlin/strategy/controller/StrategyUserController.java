@@ -12,7 +12,9 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.domlin.strategy.api.StrategyUserApi;
 import com.domlin.strategy.dto.StrategyUserDto;
+import com.domlin.strategy.entity.StrategyAnalyzeBill;
 import com.domlin.strategy.entity.StrategyUser;
+import com.domlin.strategy.service.StrategyAnalyzeBillService;
 import com.domlin.strategy.service.StrategyUserService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
@@ -52,6 +54,9 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private StrategyAnalyzeBillService billService;
+
     @Override
     public ResultData<PageResult<StrategyUserDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
@@ -87,12 +92,15 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
     }
 
     @Override
-    public ResultData<List<Executor>> findOfficerByProjectId(FlowInvokeParams invokeParams) {
+    public ResultData<List<Executor>> findUnitOfficer(FlowInvokeParams invokeParams) {
         String id = invokeParams.getId();
-        List<StrategyUser> strategyUsers = service.findOfficerByProjectId(id);
-        if (CollectionUtils.isEmpty(strategyUsers)){
+
+        StrategyAnalyzeBill bill = billService.findByProjectId(id);
+        if (bill == null){
             return ResultData.fail("未配置单位负责人，请先配置单位负责人！");
         }
+        List<StrategyUser> strategyUsers = service.findUnitOfficer(bill.getModuleCode());
+
         List<Executor> list = new ArrayList<>();
         for (StrategyUser strategyUser : strategyUsers) {
             Executor executor= new Executor();

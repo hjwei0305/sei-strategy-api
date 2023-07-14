@@ -34,4 +34,8 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
     // findManagementsByModuleCode,通过moduleCode，查询StrategyUser表，获取style为management的信息
     @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'manage'")
     List<StrategyUser> findManagementsByModuleCode(String moduleCode);
+
+    @Modifying
+    @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'officer'")
+    List<StrategyUser> findUnitOfficer(String moduleCode);
 }
