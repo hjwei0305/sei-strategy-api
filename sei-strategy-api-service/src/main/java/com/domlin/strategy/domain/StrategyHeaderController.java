@@ -267,6 +267,35 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         return ResultData.success();
     }
 
+    @Override
+    public ResultData<StrategyHeaderDto> findBillById(String projectId) {
+
+        //查询所有经营策略
+        StrategyAnalyzeBill bill = service.findByProjectId(projectId);
+        StrategyProject one = strategyProjectService.findOne(projectId);
+
+        StrategyAnalyzeBillDto strategyAnalyzeBillDto = modelMapper.map(bill, StrategyAnalyzeBillDto.class);
+        List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
+
+        StrategyProjectDto projectDto = modelMapper.map(one, StrategyProjectDto.class);
+        //1、添加经营策略模块对接人
+        projectDto.setContacts(contacts);
+        //2、添加经营策略项目负责人
+        getOfficers(projectDto);
+        // 3、添加项目相关方
+        getRelates(projectDto);
+        // 4、添加行动计划
+        getPlans(projectDto);
+
+        //返回临时类
+        StrategyHeaderDto temp = new StrategyHeaderDto();
+        temp.setId(one.getId());
+        temp.setStrategyAnalyzeBillDto(strategyAnalyzeBillDto);
+        temp.setStrategyProjectDto(projectDto);
+        temp.setModules(strategyAnalyzeBillDto.getModule());
+        return ResultData.success(temp);
+    }
+
 
     //更新经营策略阶段
     public void updateStage(String id, String stage) {

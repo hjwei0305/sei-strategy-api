@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -37,5 +38,8 @@ public interface StrategyHeaderApi extends BaseEntityApi<StrategyHeaderDto> {
     @ApiOperation(value = "更新strategyAnalyzeBill，并且保存strategyProject", notes = "更新strategyAnalyzeBill，并且保存strategyProject")
     ResultData<StrategyHeaderDto> save(@RequestBody StrategyHeaderDto strategyHeaderDto);
 
-
+    // 通过项目id查询
+    @PostMapping(path = "findBillById")
+    @ApiOperation(value = "审批表单使用", notes = "表单审批页面")
+    ResultData<StrategyHeaderDto> findBillById(@RequestParam("projectId") String projectId);
 }

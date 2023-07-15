@@ -173,6 +173,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
         ResultData<StrategyProjectDto> updatedProject = ResultData.fail("提交失败");
         // 保存项目
         if (strategyProject != null) {
+            strategyProject.setStage(StrategyConstant.STAGE_AUDIT);
             updatedProject = update(strategyProject);
         }
         // 提交流程
