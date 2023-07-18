@@ -56,7 +56,7 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
      * 是否财务数据
      */
     @ApiModelProperty(value = "是否财务数据")
-    private String isFinancial;
+    private Boolean isFinancial;
     /**
      * 延迟天数
      */
@@ -109,11 +109,11 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
         this.deliverable = deliverable;
     }
 
-    public String getIsFinancial() {
+    public Boolean getIsFinancial() {
         return isFinancial;
     }
 
-    public void setIsFinancial(String isFinancial) {
+    public void setIsFinancial(Boolean isFinancial) {
         this.isFinancial = isFinancial;
     }
 

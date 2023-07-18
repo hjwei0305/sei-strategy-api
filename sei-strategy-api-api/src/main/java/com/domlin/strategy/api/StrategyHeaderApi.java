@@ -7,6 +7,7 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.vo.StrategyHeaderDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,7 @@ public interface StrategyHeaderApi extends BaseEntityApi<StrategyHeaderDto> {
     ResultData<StrategyHeaderDto> save(@RequestBody StrategyHeaderDto strategyHeaderDto);
 
     // 通过项目id查询
-    @PostMapping(path = "findBillById")
+    @GetMapping(path = "findBillById")
     @ApiOperation(value = "审批表单使用", notes = "表单审批页面")
     ResultData<StrategyHeaderDto> findBillById(@RequestParam("projectId") String projectId);
 }

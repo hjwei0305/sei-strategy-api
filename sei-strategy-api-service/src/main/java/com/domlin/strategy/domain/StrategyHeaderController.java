@@ -152,6 +152,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         if (CollectionUtils.isNotEmpty(plans)) {
             for (StrategyProjectPlans strategyProjectPlans : plans) {
                 StrategyProjectPlansDto strategyProjectPlansDto = modelMapper.map(strategyProjectPlans, StrategyProjectPlansDto.class);
+                strategyProjectPlansDto.setIsFinancial(strategyProjectPlans.getIsFinancial());
                 strategyProjectPlansDtoList.add(strategyProjectPlansDto);
             }
         }
@@ -267,6 +268,11 @@ public class StrategyHeaderController implements StrategyHeaderApi {
         return ResultData.success();
     }
 
+    /**
+     * 通过projectId查询流程的经营策略
+     * @param projectId
+     * @return
+     */
     @Override
     public ResultData<StrategyHeaderDto> findBillById(String projectId) {
 

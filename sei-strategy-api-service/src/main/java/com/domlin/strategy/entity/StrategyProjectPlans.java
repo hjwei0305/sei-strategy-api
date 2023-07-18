@@ -64,7 +64,7 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
      * 是否财务数据
      */
     @Column(name = "is_financial")
-    private String isFinancial;
+    private Boolean isFinancial= Boolean.FALSE;
     /**
      * 延迟天数
      */
@@ -117,11 +117,11 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
         this.deliverable = deliverable;
     }
 
-    public String getIsFinancial() {
+    public Boolean getIsFinancial() {
         return isFinancial;
     }
 
-    public void setIsFinancial(String isFinancial) {
+    public void setIsFinancial(Boolean isFinancial) {
         this.isFinancial = isFinancial;
     }
 
