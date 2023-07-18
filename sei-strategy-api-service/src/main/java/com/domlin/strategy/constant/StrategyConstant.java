@@ -19,9 +19,14 @@ public class StrategyConstant {
     public static final String STAGE_SUBMIT = "submit";
 
     /**
-     * 审核状态
+     * 审核中状态
      */
-    public static final String STAGE_AUDIT = "audit";
+    public static final String STAGE_AUDIT = "auditing";
+
+    /**
+     * 审批完成
+     */
+    public static final String STAGE_AUDIT_FINISH = "auditFinish";
 
     /**
      * 变更
