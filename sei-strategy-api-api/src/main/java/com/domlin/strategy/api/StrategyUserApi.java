@@ -62,5 +62,11 @@ public interface StrategyUserApi extends BaseEntityApi<StrategyUserDto>,FindByPa
     @ApiOperation(value = "获取审批单据单位负责人", notes = "获取审批单据部门负责人")
     ResultData<List<Executor>> findManagements(@RequestBody FlowInvokeParams invokeParams);
 
+    /**
+     * 流程审批-查询项目相关方
+     */
+    @PostMapping(path = "findRelates",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "获取审批单据项目相关方", notes = "获取审批单据项目相关方")
+    ResultData<List<Executor>> findRelates(@RequestBody FlowInvokeParams invokeParams);
 
 }

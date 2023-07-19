@@ -62,7 +62,7 @@ public class StrategyProjectDto extends BaseEntityDto {
      * 初审是否通过
      */
     @ApiModelProperty(value = "初审是否通过")
-    private Object isPastFirstTrial;
+    private Boolean isPastFirstTrial;
     /**
      * 初审日期
      */
@@ -183,11 +183,11 @@ public class StrategyProjectDto extends BaseEntityDto {
         this.target = target;
     }
 
-    public Object getIsPastFirstTrial() {
+    public Boolean getIsPastFirstTrial() {
         return isPastFirstTrial;
     }
 
-    public void setIsPastFirstTrial(Object isPastFirstTrial) {
+    public void setIsPastFirstTrial(Boolean isPastFirstTrial) {
         this.isPastFirstTrial = isPastFirstTrial;
     }
 

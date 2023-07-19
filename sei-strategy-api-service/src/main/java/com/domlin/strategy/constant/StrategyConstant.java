@@ -65,10 +65,10 @@ public class StrategyConstant {
     /**
      *  未通过初审
      */
-    public static final Object IS_PAST_FIRST_TRIAL_NO = "0";
+    public static final Boolean IS_PAST_FIRST_TRIAL_NO = false;
     /**
      *  通过初审
      */
-    public static final Object IS_PAST_FIRST_TRIAL_YES = "1";
+    public static final Boolean IS_PAST_FIRST_TRIAL_YES = true;
 
 }
