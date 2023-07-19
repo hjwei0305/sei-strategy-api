@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -174,6 +175,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
         // 保存项目
         if (strategyProject != null) {
             strategyProject.setStage(StrategyConstant.STAGE_AUDIT);
+            strategyProject.setSubmitDate(new Date());
             updatedProject = update(strategyProject);
         }
         // 提交流程
