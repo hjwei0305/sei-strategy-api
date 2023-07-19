@@ -282,6 +282,7 @@ public class StrategyHeaderController implements StrategyHeaderApi {
 
         StrategyAnalyzeBillDto strategyAnalyzeBillDto = modelMapper.map(bill, StrategyAnalyzeBillDto.class);
         List<StrategyUserDto> contacts = getContacts(strategyAnalyzeBillDto);
+        service.getManagements(strategyAnalyzeBillDto);
 
         StrategyProjectDto projectDto = modelMapper.map(one, StrategyProjectDto.class);
         //1、添加经营策略模块对接人

@@ -62,4 +62,13 @@ public class StrategyConstant {
     public static final String organizationName="新宝股份-营运管理中心-信息化管理中心";
 
 
+    /**
+     *  未通过初审
+     */
+    public static final Object IS_PAST_FIRST_TRIAL_NO = "0";
+    /**
+     *  通过初审
+     */
+    public static final Object IS_PAST_FIRST_TRIAL_YES = "1";
+
 }

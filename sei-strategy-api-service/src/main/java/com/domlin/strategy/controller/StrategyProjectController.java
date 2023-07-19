@@ -175,6 +175,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
         // 保存项目
         if (strategyProject != null) {
             strategyProject.setStage(StrategyConstant.STAGE_AUDIT);
+            strategyProject.setIsPastFirstTrial(StrategyConstant.IS_PAST_FIRST_TRIAL_NO);
             strategyProject.setSubmitDate(new Date());
             updatedProject = update(strategyProject);
         }

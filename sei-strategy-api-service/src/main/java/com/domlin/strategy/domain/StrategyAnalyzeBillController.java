@@ -82,7 +82,7 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
                 // 模块对接人
                 getContact(dto);
                 // 管理者成员
-                getManagements(dto);
+                service.getManagements(dto);
                 newRows.add(dto);
             }
             newPageResult.setRows(newRows);
@@ -92,22 +92,7 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
         return ResultData.success(newPageResult);
     }
 
-    private void getManagements(StrategyAnalyzeBillDto dto) {
-        if (dto != null) {
-            List<StrategyUser> strategyUsers = strategyUserService.findManagementsByModuleCode(dto.getModuleCode());
-            if (CollectionUtils.isNotEmpty(strategyUsers)) {
-                String managementCodes = "";
-                String managementNames = "";
 
-                for (int i = 0; i < strategyUsers.size(); i++) {
-                    managementCodes += strategyUsers.get(i).getUserCode() + ",";
-                    managementNames += strategyUsers.get(i).getUserName() + ",";
-                }
-                dto.setManagemetCodes(managementCodes);
-                dto.setManagemetNames(managementNames);
-            }
-        }
-    }
 
     private void getContact(StrategyAnalyzeBillDto dto) {
         if (dto != null) {

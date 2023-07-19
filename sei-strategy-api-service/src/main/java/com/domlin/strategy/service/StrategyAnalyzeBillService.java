@@ -7,6 +7,8 @@ import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.serial.sdk.SerialService;
 import com.domlin.strategy.dao.StrategyAnalyzeBillDao;
 import com.domlin.strategy.entity.StrategyAnalyzeBill;
+import com.domlin.strategy.entity.StrategyUser;
+import com.domlin.strategy.vo.StrategyAnalyzeBillDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
     @Autowired(required = false)
     private SerialService serialService;
 
+    @Autowired(required = false)
+    private StrategyUserService strategyUserService;
+
     @Override
     @Transactional
     public OperateResultWithData<StrategyAnalyzeBill> save(StrategyAnalyzeBill entity) {
@@ -60,5 +65,22 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
 
     public StrategyAnalyzeBill findByProjectId(String pojectId){
         return dao.findByProjectId(pojectId);
+    }
+
+    public void getManagements(StrategyAnalyzeBillDto dto) {
+        if (dto != null) {
+            List<StrategyUser> strategyUsers = strategyUserService.findManagementsByModuleCode(dto.getModuleCode());
+            if (CollectionUtils.isNotEmpty(strategyUsers)) {
+                String managementCodes = "";
+                String managementNames = "";
+
+                for (int i = 0; i < strategyUsers.size(); i++) {
+                    managementCodes += strategyUsers.get(i).getUserCode() + ",";
+                    managementNames += strategyUsers.get(i).getUserName() + ",";
+                }
+                dto.setManagemetCodes(managementCodes);
+                dto.setManagemetNames(managementNames);
+            }
+        }
     }
 }
