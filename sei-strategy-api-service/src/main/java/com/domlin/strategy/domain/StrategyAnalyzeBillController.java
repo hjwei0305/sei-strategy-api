@@ -70,9 +70,9 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
      */
     @Override
     public ResultData<PageResult<StrategyAnalyzeBillDto>> findByPage(Search search) {
-        PageResult<StrategyAnalyzeBillDto> newPageResult = new PageResult<>();
         List<StrategyAnalyzeBillDto> newRows = new ArrayList<>();
         PageResult<StrategyAnalyzeBill> pageResult = service.findByPage(search);
+        PageResult<StrategyAnalyzeBillDto> newPageResult = new PageResult<>(pageResult);
         ArrayList<StrategyAnalyzeBill> rows = pageResult.getRows();
         if (CollectionUtils.isNotEmpty(rows)) {
             for (int i = 0; i < rows.size(); i++) {
@@ -86,8 +86,6 @@ public class StrategyAnalyzeBillController extends BaseEntityController<Strategy
                 newRows.add(dto);
             }
             newPageResult.setRows(newRows);
-            newPageResult.setTotal(pageResult.getTotal());
-            newPageResult.setPage(pageResult.getPage());
         }
         return ResultData.success(newPageResult);
     }

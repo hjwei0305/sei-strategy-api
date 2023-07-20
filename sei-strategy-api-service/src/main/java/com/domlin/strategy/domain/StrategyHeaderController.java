@@ -74,14 +74,14 @@ public class StrategyHeaderController implements StrategyHeaderApi {
      */
     @Override
     public ResultData<PageResult<StrategyHeaderDto>> findByPage(Search search) {
-        //返回包装类
-        PageResult<StrategyHeaderDto> newPageResult = new PageResult<>();
+
         //返回的经营策略
         List<StrategyHeaderDto> strategyHeaderDtoList = new ArrayList<>();
         //查询所有经营策略
         PageResult<StrategyAnalyzeBill> pageResult = service.findByPage(search);
         List<StrategyAnalyzeBill> strategyAnalyzeBillList = pageResult.getRows();
-
+        //返回包装类
+        PageResult<StrategyHeaderDto> newPageResult = new PageResult<>(pageResult);
         //组装返回集合
         if (CollectionUtils.isNotEmpty(strategyAnalyzeBillList)) {
             for (StrategyAnalyzeBill strategyAnalyzeBill : strategyAnalyzeBillList) {
@@ -140,7 +140,6 @@ public class StrategyHeaderController implements StrategyHeaderApi {
             }
         }
         newPageResult.setRows(strategyHeaderDtoList);
-        newPageResult.setTotal(pageResult.getTotal());
         return ResultData.success(newPageResult);
     }
 
