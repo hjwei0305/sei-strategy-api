@@ -156,6 +156,29 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
         return ResultData.success(list);
     }
 
+    @Override
+    public ResultData<List<Executor>> findLeader(FlowInvokeParams invokeParams) {
+        String id = invokeParams.getId();
+        StrategyAnalyzeBill bill = billService.findByProjectId(id);
+        if (bill == null){
+            return ResultData.fail("经营策略不存在，数据异常");
+        }
+        List<StrategyUser> strategyUsers = service.findLeader(bill.getModuleCode());
+        if (CollectionUtils.isEmpty(strategyUsers)){
+            return ResultData.fail("未配置单位负责人，请先配置单位负责人！");
+        }
+
+        List<Executor> list = new ArrayList<>();
+        for (StrategyUser strategyUser : strategyUsers) {
+            Executor executor= new Executor();
+            executor.setCode(strategyUser.getUserCode());
+            executor.setName(strategyUser.getUserName());
+            executor.setId(strategyUser.getUserId());
+            list.add(executor);
+        }
+        return ResultData.success(list);
+    }
+
     /**
      * 保存人员信息
      * @param strategyUserDto

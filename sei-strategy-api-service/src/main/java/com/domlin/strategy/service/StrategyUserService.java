@@ -171,8 +171,21 @@ public class StrategyUserService extends BaseEntityService<StrategyUser> {
         relatedRelationDao.deleteByProjectId(id);
     }
 
+    /**
+     * 根据模块编码查询经营策略管理组成员
+     * @param moduleCode
+     * @return
+     */
     public List<StrategyUser> findManagementsByModuleCode(String moduleCode) {
         return dao.findManagementsByModuleCode(moduleCode);
     }
 
+    /**
+     * 根据模块编码查询经模块负责人
+     * @param moduleCode
+     * @return
+     */
+    public List<StrategyUser> findLeader(String moduleCode) {
+        return dao.findLeader(moduleCode);
+    }
 }

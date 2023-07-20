@@ -38,4 +38,8 @@ public interface StrategyUserDao extends BaseEntityDao<StrategyUser> {
     @Modifying
     @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'officer'")
     List<StrategyUser> findUnitOfficer(String moduleCode);
+
+    @Modifying
+    @Query("select su from StrategyUser su where su.moduleCode = :moduleCode and su.style = 'leader'")
+    List<StrategyUser> findLeader(String moduleCode);
 }
