@@ -46,4 +46,9 @@ public interface StrategyProjectApi extends BaseEntityApi<StrategyProjectDto> {
     @PostMapping(path = "updateAuditFinish",consumes = "application/json")
     @ApiOperation(value = "项目审批完成", notes = "项目审批完成")
     ResultData<List<Executor>> updateAuditFinish(FlowInvokeParams invokeParams);
+
+    @PostMapping(path = "pastFirstTrial",consumes = "application/json")
+    @ApiOperation(value = "项目初审通过", notes = "项目初审通过")
+    ResultData<List<Executor>> pastFirstTrial(FlowInvokeParams invokeParams);
+
 }

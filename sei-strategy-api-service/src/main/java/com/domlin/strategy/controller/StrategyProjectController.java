@@ -197,4 +197,19 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
         service.save(one);
         return ResultData.success();
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<List<Executor>> pastFirstTrial(FlowInvokeParams invokeParams) {
+        String id = invokeParams.getId();
+        StrategyProject one = service.findOne(id);
+        if (one == null) {
+            return ResultData.fail("项目不存在");
+        }
+        one.setIsPastFirstTrial(StrategyConstant.IS_PAST_FIRST_TRIAL_YES);
+        service.save(one);
+        return ResultData.success();
+    }
+
+
 }
