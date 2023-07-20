@@ -2,6 +2,8 @@ package com.domlin.strategy.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.flow.Executor;
+import com.changhong.sei.core.dto.flow.FlowInvokeParams;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.domlin.strategy.dto.StrategyProjectDto;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 项目(StrategyProject)API
@@ -40,4 +43,7 @@ public interface StrategyProjectApi extends BaseEntityApi<StrategyProjectDto> {
     @ApiOperation(value = "项目提交", notes = "项目提交")
     ResultData<StrategyProjectDto> submitProject(@RequestBody StrategyProjectDto strategyProject) throws Exception;
 
+    @PostMapping(path = "updateAuditFinish",consumes = "application/json")
+    @ApiOperation(value = "项目审批完成", notes = "项目审批完成")
+    ResultData<List<Executor>> updateAuditFinish(FlowInvokeParams invokeParams);
 }

@@ -3,6 +3,8 @@ package com.domlin.strategy.controller;
 import com.changhong.sei.basic.api.SysUserApi;
 import com.changhong.sei.basic.dto.SysUserDto;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.flow.Executor;
+import com.changhong.sei.core.dto.flow.FlowInvokeParams;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
@@ -181,5 +183,18 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
         }
         // 提交流程
         return updatedProject;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<List<Executor>> updateAuditFinish(FlowInvokeParams invokeParams) {
+        String id = invokeParams.getId();
+        StrategyProject one = service.findOne(id);
+        if (one == null) {
+            return ResultData.fail("项目不存在");
+        }
+        one.setStage(StrategyConstant.STAGE_AUDIT_FINISH);
+        service.save(one);
+        return ResultData.success();
     }
 }
