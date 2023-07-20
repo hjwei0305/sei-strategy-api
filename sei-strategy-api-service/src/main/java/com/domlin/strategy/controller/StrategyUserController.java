@@ -123,7 +123,7 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
         }
         List<StrategyUser> strategyUsers = service.findManagementsByModuleCode(bill.getModuleCode());
         if (CollectionUtils.isEmpty(strategyUsers)){
-            return ResultData.fail("未配置单位负责人，请先配置单位负责人！");
+            return ResultData.fail("未配置经营策略组成员，请先配置经营策略组成员！");
         }
 
         List<Executor> list = new ArrayList<>();
