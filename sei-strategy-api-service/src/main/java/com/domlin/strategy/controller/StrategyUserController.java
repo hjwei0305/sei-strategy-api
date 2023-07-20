@@ -142,7 +142,7 @@ public class StrategyUserController extends BaseEntityController<StrategyUser, S
         String id = invokeParams.getId();
         List<StrategyUser> strategyUsers = service.findByStrategyProjectId(id);
         if (CollectionUtils.isEmpty(strategyUsers)){
-            return ResultData.fail("未配置单位负责人，请先配置单位负责人！");
+            return ResultData.fail("未配置相关方，请先配置相关方！");
         }
 
         List<Executor> list = new ArrayList<>();
