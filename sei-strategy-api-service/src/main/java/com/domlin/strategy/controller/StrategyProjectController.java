@@ -118,7 +118,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
                     strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
                     strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
-                    strategyUser.setUserId(byEmployeeCode.getData().getId());
+                    strategyUser.setUserId(officer. getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
                     StrategyUser saveData = save.getData();
                     userService.addOfficerelation(strategyProject.getId(), saveData.getId());
@@ -143,7 +143,7 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
                     strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
                     strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
                     strategyUser.setPosition(byEmployeeCode.getData().getSpName());
-                    strategyUser.setUserId(byEmployeeCode.getData().getId());
+                    strategyUser.setUserId(relate.getId());
                     OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
                     StrategyUser saveData = save.getData();
                     userService.addRelateRelation(strategyProject.getId(), saveData.getId());

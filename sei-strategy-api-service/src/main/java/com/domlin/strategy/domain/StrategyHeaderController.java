@@ -94,6 +94,8 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                 // 2、添加经项目负责人
                 // 3、添加项目相关方
                 // 4、添加行动计划
+                // 5、添加经营策略管理组
+                service.getManagements(strategyAnalyzeBillDto);
                 /**
                  * 这里会涉及多个Header，因为需求不合理，所以这里做了特殊处理
                  */

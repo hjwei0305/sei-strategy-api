@@ -112,6 +112,8 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
     @ApiModelProperty("managemetNames")
     private String managemetNames;
 
+    @ApiModelProperty("managemetDepartments")
+    private String managemetDepartments;
 
     @ApiModelProperty("contacts")
     private List<StrategyUserDto> contacts;
@@ -293,5 +295,13 @@ public class StrategyAnalyzeBillDto extends BaseEntityDto {
 
     public void setManagemetNames(String managemetNames) {
         this.managemetNames = managemetNames;
+    }
+
+    public String getManagemetDepartments() {
+        return managemetDepartments;
+    }
+
+    public void setManagemetDepartments(String managemetDepartments) {
+        this.managemetDepartments = managemetDepartments;
     }
 }

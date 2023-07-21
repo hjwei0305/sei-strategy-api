@@ -73,13 +73,15 @@ public class StrategyAnalyzeBillService extends BaseEntityService<StrategyAnalyz
             if (CollectionUtils.isNotEmpty(strategyUsers)) {
                 String managementCodes = "";
                 String managementNames = "";
-
+                String managemetDepartments = "";
                 for (int i = 0; i < strategyUsers.size(); i++) {
                     managementCodes += strategyUsers.get(i).getUserCode() + ",";
                     managementNames += strategyUsers.get(i).getUserName() + ",";
+                    managemetDepartments += strategyUsers.get(i).getDepartment() + ",";
                 }
                 dto.setManagemetCodes(managementCodes);
                 dto.setManagemetNames(managementNames);
+                dto.setManagemetDepartments(managemetDepartments);
             }
         }
     }
