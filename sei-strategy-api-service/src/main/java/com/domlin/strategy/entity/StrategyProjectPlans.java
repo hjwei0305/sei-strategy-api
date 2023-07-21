@@ -75,6 +75,11 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
      */
     @Column(name = "finish_date")
     private Date finishDate;
+    /**
+     * user表id
+     */
+    @Column(name = "user_id")
+    private String userId;
 
 
     public String getProjectId() {
@@ -157,4 +162,19 @@ public class StrategyProjectPlans extends BaseAuditableEntity implements Seriali
         this.userName = userName;
     }
 
+    public Boolean getFinancial() {
+        return isFinancial;
+    }
+
+    public void setFinancial(Boolean financial) {
+        isFinancial = financial;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

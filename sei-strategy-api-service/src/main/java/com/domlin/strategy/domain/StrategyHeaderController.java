@@ -119,7 +119,6 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                         temp.setStrategyAnalyzeBillDto(newDto);
                         temp.setStrategyProjectDto(projectDto);
                         temp.setModules(strategyAnalyzeBillDto.getModule());
-
                         strategyHeaderDtoList.add(temp);
                     }
                 }else {
@@ -136,7 +135,6 @@ public class StrategyHeaderController implements StrategyHeaderApi {
                     //添加经营策略模块对接人
                     strategyProjectDto.setContacts(contacts);
                     temp.setStrategyProjectDto(strategyProjectDto);
-
                     strategyHeaderDtoList.add(temp);
                 }
             }

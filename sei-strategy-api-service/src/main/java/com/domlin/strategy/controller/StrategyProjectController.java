@@ -1,25 +1,25 @@
 package com.domlin.strategy.controller;
 
 import com.changhong.sei.basic.api.SysUserApi;
-import com.changhong.sei.basic.dto.SysUserDto;
+
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.flow.Executor;
 import com.changhong.sei.core.dto.flow.FlowInvokeParams;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.core.service.bo.OperateResultWithData;
+
 import com.domlin.strategy.api.StrategyProjectApi;
 import com.domlin.strategy.constant.StrategyConstant;
 import com.domlin.strategy.dto.StrategyProjectDto;
 import com.domlin.strategy.dto.StrategyUserDto;
 import com.domlin.strategy.entity.StrategyProject;
-import com.domlin.strategy.entity.StrategyUser;
+
 import com.domlin.strategy.flow.BaseFlowController;
 import com.domlin.strategy.flow.BaseFlowEntityService;
 import com.domlin.strategy.service.StrategyProjectPlansService;
 import com.domlin.strategy.service.StrategyProjectService;
 import com.domlin.strategy.service.StrategyUserService;
-import io.netty.util.internal.StringUtil;
+
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -51,9 +51,6 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
 
     @Autowired
     private StrategyUserService userService;
-
-    @Autowired
-    private SysUserApi sysUserApi;
 
     @Override
     public BaseFlowEntityService<StrategyProject> getService() {
@@ -105,52 +102,9 @@ public class StrategyProjectController extends BaseFlowController<StrategyProjec
             }
             userService.addContactRelation(strategyProject.getId(), contacts.get(0).getId());
             //保存项目负责人关联关系
-            List<StrategyUserDto> officers = strategyProject.getOfficers();
-            userService.deleteOfficerByProjectId(strategyProject.getId());
-            for (StrategyUserDto officer : officers) {
-                String userCode = officer.getUserCode();
-                List<StrategyUser> users = userService.findByUserCode(userCode);
-                if (CollectionUtils.isEmpty(users)){
-                    ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
-                    StrategyUser strategyUser = new StrategyUser();
-                    strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
-                    strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
-                    strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
-                    strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
-                    strategyUser.setPosition(byEmployeeCode.getData().getSpName());
-                    strategyUser.setUserId(officer. getId());
-                    OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
-                    StrategyUser saveData = save.getData();
-                    userService.addOfficerelation(strategyProject.getId(), saveData.getId());
-                }else {
-                    userService.addOfficerelation(strategyProject.getId(), users.get(0).getId());
-                }
-            }
+            userService.saveProjectOfficers(strategyProject);
             //保存项目相关方
-            List<StrategyUserDto> relates = strategyProject.getRelates();
-            userService.deleteRelatedByProjectId(strategyProject.getId());
-            for (StrategyUserDto relate : relates) {
-                String userCode = relate.getUserCode();
-                if(StringUtil.isNullOrEmpty(userCode)){
-                    continue;
-                }
-                List<StrategyUser> byUserCodes = userService.findByUserCode(userCode);
-                if (CollectionUtils.isEmpty(byUserCodes)){
-                    ResultData<SysUserDto> byEmployeeCode = sysUserApi.findByEmployeeCode(userCode);
-                    StrategyUser strategyUser = new StrategyUser();
-                    strategyUser.setUserCode(byEmployeeCode.getData().getEmployeeCode());
-                    strategyUser.setUserName(byEmployeeCode.getData().getEmployeeName());
-                    strategyUser.setDepartment(byEmployeeCode.getData().getOrgname());
-                    strategyUser.setuserState(byEmployeeCode.getData().getLjdate()==null?"在职":"离职");
-                    strategyUser.setPosition(byEmployeeCode.getData().getSpName());
-                    strategyUser.setUserId(relate.getId());
-                    OperateResultWithData<StrategyUser> save = userService.save(strategyUser);
-                    StrategyUser saveData = save.getData();
-                    userService.addRelateRelation(strategyProject.getId(), saveData.getId());
-                }else {
-                    userService.addRelateRelation(strategyProject.getId(), byUserCodes.get(0).getId());
-                }
-            }
+            userService.saveProjectRelates(strategyProject);
             // 保存项目计划
             plansService.save(strategyProject);
             //  保存项目

@@ -27,6 +27,11 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
     @ApiModelProperty(value = "月份")
     private String month;
     /**
+     * userId
+     */
+    @ApiModelProperty(value = "userId")
+    private String userId;
+    /**
      * 责任人code
      */
     @ApiModelProperty(value = "责任人code")
@@ -147,5 +152,21 @@ public class StrategyProjectPlansDto extends BaseEntityDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Boolean getFinancial() {
+        return isFinancial;
+    }
+
+    public void setFinancial(Boolean financial) {
+        isFinancial = financial;
     }
 }
